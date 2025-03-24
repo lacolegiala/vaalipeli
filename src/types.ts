@@ -26,7 +26,7 @@ type Info = {
 type Municipality = {
   name_fi: string,
   name_sv: string,
-  municipality_id: string
+  id: string
 }
 
 type County = {

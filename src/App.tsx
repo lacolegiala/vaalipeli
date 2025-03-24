@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import './App.css'
 import React from 'react'
 import axios from 'axios'
@@ -20,17 +20,22 @@ function App() {
     }
   }
 
-  getCandidateData()
+  useEffect(() => {
+    getCandidateData();
+  }, []);
 
   return (
     <div>
-      {municipalities.map((municipality) => {
-        return (
-          <li>
-            {municipality.name_fi}
-          </li>
-        )
-      })}
+      <label htmlFor='municipalities'>Valitse kunta:</label>
+      <select name='municipalities' id='municipalities'>
+        {municipalities.map((municipality) => {
+          return (
+            <option key={municipality.id}>
+              {municipality.name_fi}
+            </option>
+          )
+        })}
+      </select>
     </div>
   )
 }
