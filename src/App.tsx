@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react'
 import './App.css'
 import React from 'react'
 import axios from 'axios'
-import { Candidate, County, ElectionType, Municipality } from "./types";
+import { Candidate, County, ElectionType, GameData, Municipality, Round } from "./types";
 
 function App() {
   const [score, setScore] = useState(0)
@@ -13,6 +13,7 @@ function App() {
   const [municipalities, setMunicipalities] = useState<Municipality[]>([])
   const [selectedMunicipality, setSelectedMunicipality] = useState<Municipality>()
   const [selectedType, setSelectedType] = useState<ElectionType>()
+  const [round, setRound] = useState(1)
 
   async function getBaseData() {
     try {
@@ -28,6 +29,51 @@ function App() {
   useEffect(() => {
     getBaseData();
   }, []);
+
+  useEffect(() => {
+    if (municipalityCandidates.length > 0) {
+      console.log(generateGameData(municipalityCandidates));
+    }
+  }, [municipalityCandidates]);
+
+  function generateGameData(candidates: Candidate[]): GameData {
+    if (candidates.length === 0) throw new Error("Candidate array cannot be empty");
+  
+    const selectedCandidates: Candidate[] = [];
+    while (selectedCandidates.length < 20) {
+      selectedCandidates.push(...candidates);
+    }
+    const gameCandidates = selectedCandidates.slice(0, 20);
+  
+    const rounds: Round[] = [];
+  
+    for (let i = 0; i < 10; i++) {
+      const candidate1 = gameCandidates[i * 2];
+      const candidate2 = gameCandidates[i * 2 + 1];
+  
+      const correctCandidate = Math.random() < 0.5 ? candidate1 : candidate2;
+  
+      const promises = [
+        correctCandidate.info.election_promise_1,
+        correctCandidate.info.election_promise_2,
+        correctCandidate.info.election_promise_3
+      ].filter(p => p !== undefined)
+
+      const selectedPromise = promises.length > 0 ? promises[Math.floor(Math.random() * promises.length)] : null;
+
+      const finalPromise = selectedPromise?.fi || selectedPromise?.se || "Ei vaalilupausta :O";
+  
+      rounds.push({
+        candidates: [candidate1, candidate2],
+        correctCandidateId: correctCandidate.id,
+        promise: finalPromise
+      });
+    }
+  
+    return {
+      rounds
+    }
+  }
 
   const handleMunicipalityChange = async (event: React.ChangeEvent<HTMLSelectElement>) => {
     const selectedOption = municipalities.find((municipality) => municipality.name_fi === event.target.value)
