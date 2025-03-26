@@ -24,9 +24,11 @@ type Info = {
 }
 
 type Municipality = {
+  id: string,
   name_fi: string,
   name_sv: string,
-  id: string
+  municipality_id: string,
+  county_id: string
 }
 
 type County = {
@@ -39,4 +41,9 @@ type Party = {
   id: number,
   name_fi: string,
   color: string
+}
+
+enum ElectionType {
+  municipality,
+  county
 }

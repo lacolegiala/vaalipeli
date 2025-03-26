@@ -5,11 +5,14 @@ import axios from 'axios'
 
 function App() {
   const [score, setScore] = useState(0)
-  const [candidates, setCandidates] = useState<Candidate[]>([])
+  const [countyCandidates, setCountyCandidates] = useState<Candidate[]>([])
+  const [municipalityCandidates, setMunicipalityCandidates] = useState<Candidate[]>([])
   const [counties, setCounties] = useState<County[]>([])
   const [municipalities, setMunicipalities] = useState<Municipality[]>([])
+  const [selectedMunicipality, setSelectedMunicipality] = useState<Municipality>()
+  const [selectedType, setSelectedType] = useState<ElectionType | null>(null)
 
-  async function getCandidateData() {
+  async function getBaseData() {
     try {
       const { data: countyData } = await axios.get<County[]>('http://localhost:5002/counties')
       setCounties(countyData)
@@ -21,21 +24,45 @@ function App() {
   }
 
   useEffect(() => {
-    getCandidateData();
+    getBaseData();
   }, []);
+
+  const handleMunicipalityChange = async (event: React.ChangeEvent<HTMLSelectElement>) => {
+    const selectedOption = municipalities.find((municipality) => municipality.name_fi === event.target.value)
+    setSelectedMunicipality(selectedOption);
+    const { data: municipalityCandidateData } = await axios.get<Candidate[]>(`http://localhost:5002/municipality/${selectedOption?.id}/candidate-data`)
+    setMunicipalityCandidates(municipalityCandidateData)
+  };
+
+  const handleSelectElection = (type: ElectionType) => {
+    setSelectedType(type)
+  }
 
   return (
     <div>
-      <label htmlFor='municipalities'>Valitse kunta:</label>
-      <select name='municipalities' id='municipalities'>
-        {municipalities.map((municipality) => {
-          return (
-            <option key={municipality.id}>
-              {municipality.name_fi}
-            </option>
-          )
-        })}
-      </select>
+      <div>
+        <label htmlFor='municipalities'>Valitse kunta:</label>
+        <select
+          name='municipalities'
+          id='municipalities'
+          value={selectedMunicipality?.name_fi} 
+          onChange={handleMunicipalityChange}
+        >
+          <option value="" disabled>-- Valitse kunta --</option>
+          {municipalities.map((municipality) => {
+            return (
+              <option onClick={() => console.log(municipality.name_fi)} key={municipality.municipality_id}>
+                {municipality.name_fi}
+              </option>
+            )
+          })}
+        </select>
+      </div>
+      <div>
+        <label htmlFor='selectGameType'>Valitse vaalityyppi:</label>
+        <button value='county' onClick={() => handleSelectElection(ElectionType.county)}>Aluevaalit</button>
+        <button value='municipality' onClick={() => handleSelectElection(ElectionType.municipality)}>Kuntavaalit</button>
+      </div>
     </div>
   )
 }
