@@ -1,4 +1,4 @@
-type Candidate = {
+export type Candidate = {
   id: number,
   first_name: string,
   last_name: string,
@@ -7,7 +7,7 @@ type Candidate = {
   info: Info
 }
 
-type Info = {
+export type Info = {
   age: number,
   county_fix: {
     fi: string
@@ -23,27 +23,25 @@ type Info = {
   }
 }
 
-type Municipality = {
+export type Municipality = {
   id: string,
   name_fi: string,
-  name_sv: string,
-  municipality_id: string,
-  county_id: string
+  name_sv: string
 }
 
-type County = {
+export type County = {
   id: number,
   name_fi: string,
   name_sv: string
 }
 
-type Party = {
+export type Party = {
   id: number,
   name_fi: string,
   color: string
 }
 
-enum ElectionType {
+export enum ElectionType {
   municipality,
   county
 }
