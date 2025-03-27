@@ -3,16 +3,19 @@ import './App.css'
 import React from 'react'
 import axios from 'axios'
 import { Candidate, County, ElectionType, GameData, Municipality, Round } from "./types";
+import GameView from './GameView';
 
 function App() {
   const [score, setScore] = useState(0)
   const [countyCandidates, setCountyCandidates] = useState<Candidate[]>([])
   const [municipalityCandidates, setMunicipalityCandidates] = useState<Candidate[]>([])
+  const [candidates, setCandidates] = useState<Candidate[]>([])
   const [counties, setCounties] = useState<County[]>([])
   const [selectedCounty, setSelectedCounty] = useState<County>()
   const [municipalities, setMunicipalities] = useState<Municipality[]>([])
   const [selectedMunicipality, setSelectedMunicipality] = useState<Municipality>()
   const [selectedType, setSelectedType] = useState<ElectionType>()
+  const [gameData, setGameData] = useState<GameData>()
   const [round, setRound] = useState(1)
 
   async function getBaseData() {
@@ -31,10 +34,10 @@ function App() {
   }, []);
 
   useEffect(() => {
-    if (municipalityCandidates.length > 0) {
-      console.log(generateGameData(municipalityCandidates));
+    if (candidates.length > 0) {
+      setGameData(generateGameData(candidates))
     }
-  }, [municipalityCandidates]);
+  }, [candidates]);
 
   function generateGameData(candidates: Candidate[]): GameData {
     if (candidates.length === 0) throw new Error("Candidate array cannot be empty");
@@ -79,14 +82,14 @@ function App() {
     const selectedOption = municipalities.find((municipality) => municipality.name_fi === event.target.value)
     setSelectedMunicipality(selectedOption);
     const { data: municipalityCandidateData } = await axios.get<Candidate[]>(`http://localhost:5002/municipality/${selectedOption?.id}/candidate-data`)
-    setMunicipalityCandidates(municipalityCandidateData)
+    setCandidates(municipalityCandidateData)
   };
 
   const handleCountyChange = async (event: React.ChangeEvent<HTMLSelectElement>) => {
     const selectedOption = counties.find((county) => county.name_fi === event.target.value)
     setSelectedCounty(selectedOption)
     const { data: countyCandidateData } = await axios.get<Candidate[]>(`http://localhost:5002/county/${selectedOption?.id}/candidate-data`)
-    setCountyCandidates(countyCandidateData)
+    setCandidates(countyCandidateData)
   }
 
   const handleSelectElection = (type: ElectionType) => {
@@ -139,6 +142,9 @@ function App() {
             })}
           </select>
         </div>
+      }
+      {candidates.length > 0 && gameData &&
+        <GameView gameData={gameData} />
       }
     </div>
   )
