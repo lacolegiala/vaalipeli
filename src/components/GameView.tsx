@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { GameData } from "./types";
+import { GameData } from "../types";
 import React from "react";
 
 type GameViewProps = {
