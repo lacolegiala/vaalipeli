@@ -49,12 +49,18 @@ const GameView: React.FC<GameViewProps> = ({ candidates }) => {
           {round} / 10
           <div>Pisteet: {score}</div>
           <div>{gameData.rounds[round - 1].promise}</div>
-          <button onClick={() => handlePickChoice(gameData.rounds[round - 1].candidates[0].id)}>
-            {gameData.rounds[round - 1].candidates[0].first_name} {gameData.rounds[round - 1].candidates[0].last_name}
-          </button>
-          <button onClick={() => handlePickChoice(gameData.rounds[round - 1].candidates[1].id)}>
-            {gameData.rounds[round - 1].candidates[1].first_name} {gameData.rounds[round - 1].candidates[1].last_name}
-          </button>
+          <div>
+            <img src={`https://vaalikone.yle.fi/${gameData.rounds[round-1].candidates[0].image}`} />
+            <button onClick={() => handlePickChoice(gameData.rounds[round - 1].candidates[0].id)}>
+              {gameData.rounds[round - 1].candidates[0].first_name} {gameData.rounds[round - 1].candidates[0].last_name}
+            </button>
+          </div>
+          <div>
+            <img src={`https://vaalikone.yle.fi/${gameData.rounds[round-1].candidates[1].image}`} />
+            <button onClick={() => handlePickChoice(gameData.rounds[round - 1].candidates[1].id)}>
+              {gameData.rounds[round - 1].candidates[1].first_name} {gameData.rounds[round - 1].candidates[1].last_name}
+            </button>
+          </div>
         </div>
       ) : (
         <div>
