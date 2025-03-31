@@ -81,8 +81,7 @@ const Home: React.FC<HomeProps> = ({ setCandidates }) => {
           </select>
         </div>
       )}
-
-      {selectedType && <button onClick={handleStartGame}>Aloita peli</button>}
+      {(selectedType === 0 || selectedType === 1) && <button onClick={handleStartGame}>Aloita peli</button>}
     </div>
   );
 };

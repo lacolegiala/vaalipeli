@@ -2,10 +2,12 @@ import { Candidate, GameData, Round } from "../types";
 
 export function generateGameData(candidates: Candidate[]): GameData {
     if (candidates.length === 0) throw new Error("Candidate array cannot be empty");
+
+    const shuffled = candidates.sort(() => 0.5 - Math.random())
   
     const selectedCandidates: Candidate[] = [];
     while (selectedCandidates.length < 20) {
-      selectedCandidates.push(...candidates);
+      selectedCandidates.push(...shuffled);
     }
     const gameCandidates = selectedCandidates.slice(0, 20);
   

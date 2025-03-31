@@ -11,12 +11,13 @@ type GameViewProps = {
 const GameView: React.FC<GameViewProps> = ({ candidates }) => {
   const [round, setRound] = useState(1);
   const [score, setScore] = useState(0);
+  const [game, setGame] = useState(1)
   const [gameData, setGameData] = useState<GameData | null>(null);
   const navigate = useNavigate();
 
   useEffect(() => {
     setGameData(generateGameData(candidates));
-  }, [candidates]);
+  }, [candidates, game]);
 
   const handlePickChoice = (id: number) => {
     if (!gameData) return;
@@ -26,6 +27,18 @@ const GameView: React.FC<GameViewProps> = ({ candidates }) => {
     }
     setRound(round + 1);
   };
+
+  const handleNewGame = () => {
+    setRound(1)
+    setScore(0)
+    setGame(game + 1)
+  }
+
+  const handleBackToMainMenu = () => {
+    setRound(1)
+    setScore(0)
+    navigate('/')
+  }
 
   if (!gameData) return <div>Ladataan peliä...</div>;
 
@@ -46,7 +59,8 @@ const GameView: React.FC<GameViewProps> = ({ candidates }) => {
       ) : (
         <div>
           <div>Peli ohi! Pisteet: {score}</div>
-          <button onClick={() => navigate("/")}>Takaisin päävalikkoon</button>
+          <button onClick={() => handleNewGame()}>Uudestaan!</button>
+          <button onClick={() => handleBackToMainMenu()}>Takaisin päävalikkoon</button>
         </div>
       )}
     </div>
