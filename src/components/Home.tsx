@@ -13,9 +13,7 @@ type HomeProps = {
 const Home: React.FC<HomeProps> = ({ setGameData }) => {
   const [candidates, setCandidates] = useState<Candidate[]>([])
   const [counties, setCounties] = useState<County[]>([])
-  const [selectedCounty, setSelectedCounty] = useState<County>()
   const [municipalities, setMunicipalities] = useState<Municipality[]>([])
-  const [selectedMunicipality, setSelectedMunicipality] = useState<Municipality>()
   const [selectedType, setSelectedType] = useState<ElectionType>()
 
   const navigate = useNavigate();
@@ -75,14 +73,12 @@ const Home: React.FC<HomeProps> = ({ setGameData }) => {
 
   const handleMunicipalityChange = async (event: React.ChangeEvent<HTMLSelectElement>) => {
     const selectedOption = municipalities.find((municipality) => municipality.name_fi === event.target.value)
-    setSelectedMunicipality(selectedOption);
     const { data: municipalityCandidateData } = await axios.get<Candidate[]>(`http://localhost:5002/municipality/${selectedOption?.id}/candidate-data`)
     setCandidates(municipalityCandidateData)
   };
 
   const handleCountyChange = async (event: React.ChangeEvent<HTMLSelectElement>) => {
     const selectedOption = counties.find((county) => county.name_fi === event.target.value)
-    setSelectedCounty(selectedOption)
     const { data: countyCandidateData } = await axios.get<Candidate[]>(`http://localhost:5002/county/${selectedOption?.id}/candidate-data`)
     setCandidates(countyCandidateData)
   }
