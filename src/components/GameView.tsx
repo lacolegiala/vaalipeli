@@ -1,48 +1,52 @@
 import { useEffect, useState } from "react";
-import { GameData } from "../types";
+import { Candidate, GameData } from "../types";
 import React from "react";
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from "react-router-dom";
+import { generateGameData } from "../utils/generateGameData";
 
 type GameViewProps = {
-  gameData: GameData;
+  candidates: Candidate[];
 };
 
-const GameView: React.FC<GameViewProps> = ({ gameData }) => {
+const GameView: React.FC<GameViewProps> = ({ candidates }) => {
   const [round, setRound] = useState(1);
   const [score, setScore] = useState(0);
+  const [gameData, setGameData] = useState<GameData | null>(null);
   const navigate = useNavigate();
 
-  useEffect(() => console.log(round, gameData), [round]);
+  useEffect(() => {
+    setGameData(generateGameData(candidates));
+  }, [candidates]);
 
   const handlePickChoice = (id: number) => {
+    if (!gameData) return;
+    
     if (id === gameData.rounds[round - 1].correctCandidateId) {
       setScore(score + 1);
     }
     setRound(round + 1);
   };
 
+  if (!gameData) return <div>Ladataan peliä...</div>;
+
   return (
     <div>
-      {round < 11 ? (
+      {round <= 10 ? (
         <div>
           {round} / 10
           <div>Pisteet: {score}</div>
           <div>{gameData.rounds[round - 1].promise}</div>
-          <div>
-            <button onClick={() => handlePickChoice(gameData.rounds[round - 1].candidates[0].id)}>
-              {gameData.rounds[round - 1].candidates[0].first_name} {gameData.rounds[round - 1].candidates[0].last_name}
-            </button>
-          </div>
-          <div>
-            <button onClick={() => handlePickChoice(gameData.rounds[round - 1].candidates[1].id)}>
-              {gameData.rounds[round - 1].candidates[1].first_name} {gameData.rounds[round - 1].candidates[1].last_name}
-            </button>
-          </div>
+          <button onClick={() => handlePickChoice(gameData.rounds[round - 1].candidates[0].id)}>
+            {gameData.rounds[round - 1].candidates[0].first_name} {gameData.rounds[round - 1].candidates[0].last_name}
+          </button>
+          <button onClick={() => handlePickChoice(gameData.rounds[round - 1].candidates[1].id)}>
+            {gameData.rounds[round - 1].candidates[1].first_name} {gameData.rounds[round - 1].candidates[1].last_name}
+          </button>
         </div>
       ) : (
         <div>
           <div>Peli ohi! Pisteet: {score}</div>
-          <button onClick={() => navigate('/')}>Takaisin päävalikkoon</button>
+          <button onClick={() => navigate("/")}>Takaisin päävalikkoon</button>
         </div>
       )}
     </div>
