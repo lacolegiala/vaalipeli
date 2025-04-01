@@ -53,13 +53,14 @@ const Home: React.FC<HomeProps> = ({ setCandidates }) => {
   return (
     <div>
       <div>
-        <label>Valitse vaalityyppi:</label>
+        <h1>Tervetuloa vaalipeliin!</h1>
+        <h2>Valitse vaalityyppi:</h2>
         <button onClick={() => setSelectedType(ElectionType.county)}>Aluevaalit</button>
         <button onClick={() => setSelectedType(ElectionType.municipality)}>Kuntavaalit</button>
       </div>
 
       {selectedType === ElectionType.municipality && (
-        <div>
+        <div className='Selector'>
           <label>Valitse kunta:</label>
           <select onChange={handleMunicipalityChange}>
             <option value="" disabled>-- Valitse kunta --</option>
@@ -71,7 +72,7 @@ const Home: React.FC<HomeProps> = ({ setCandidates }) => {
       )}
 
       {selectedType === ElectionType.county && (
-        <div>
+        <div className='Selector'>
           <label>Valitse alue:</label>
           <select onChange={handleCountyChange}>
             <option value="" disabled>-- Valitse alue --</option>
