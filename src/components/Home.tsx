@@ -19,9 +19,9 @@ const Home: React.FC<HomeProps> = ({ setCandidates }) => {
   useEffect(() => {
     async function getBaseData() {
       try {
-        const { data: countyData } = await axios.get<County[]>('http://localhost:5002/counties');
+        const { data: countyData } = await axios.get<County[]>('https://vaalipeli-backend.onrender.com/counties');
         setCounties(countyData);
-        const { data: municipalityData } = await axios.get<Municipality[]>('http://localhost:5002/municipalities');
+        const { data: municipalityData } = await axios.get<Municipality[]>('https://vaalipeli-backend.onrender.com/municipalities');
         setMunicipalities(municipalityData);
       } catch (error) {
         console.error("Error fetching game data", error);
@@ -34,7 +34,7 @@ const Home: React.FC<HomeProps> = ({ setCandidates }) => {
     const selectedOption = municipalities.find(m => m.name_fi === event.target.value);
     if (!selectedOption) return;
     
-    const { data: candidates } = await axios.get<Candidate[]>(`http://localhost:5002/municipality/${selectedOption.id}/candidate-data`);
+    const { data: candidates } = await axios.get<Candidate[]>(`https://vaalipeli-backend.onrender.com/municipality/${selectedOption.id}/candidate-data`);
     setCandidates(candidates);
   };
 
@@ -42,7 +42,7 @@ const Home: React.FC<HomeProps> = ({ setCandidates }) => {
     const selectedOption = counties.find(c => c.name_fi === event.target.value);
     if (!selectedOption) return;
     
-    const { data: candidates } = await axios.get<Candidate[]>(`http://localhost:5002/county/${selectedOption.id}/candidate-data`);
+    const { data: candidates } = await axios.get<Candidate[]>(`https://vaalipeli-backend.onrender.com/county/${selectedOption.id}/candidate-data`);
     setCandidates(candidates);
   };
 
