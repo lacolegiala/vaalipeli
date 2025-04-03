@@ -29,12 +29,14 @@ const GameView: React.FC<GameViewProps> = ({ candidates }) => {
   };
 
   const handleNewGame = () => {
+    setGameData(null)
     setRound(1)
     setScore(0)
     setGame(game + 1)
   }
 
   const handleBackToMainMenu = () => {
+    setGameData(null)
     setRound(1)
     setScore(0)
     navigate('/')

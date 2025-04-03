@@ -13,11 +13,13 @@ const Home: React.FC<HomeProps> = ({ setCandidates }) => {
   const [counties, setCounties] = useState<County[]>([]);
   const [municipalities, setMunicipalities] = useState<Municipality[]>([]);
   const [selectedType, setSelectedType] = useState<ElectionType>();
+  const [isLoading, setIsLoading] = useState(false);
 
   const navigate = useNavigate();
 
   useEffect(() => {
     async function getBaseData() {
+      setIsLoading(true)
       try {
         const { data: countyData } = await axios.get<County[]>('https://vaalipeli-backend.onrender.com/counties');
         setCounties(countyData);
@@ -26,6 +28,7 @@ const Home: React.FC<HomeProps> = ({ setCandidates }) => {
       } catch (error) {
         console.error("Error fetching game data", error);
       }
+      setIsLoading(false)
     }
     getBaseData();
   }, []);
@@ -59,7 +62,9 @@ const Home: React.FC<HomeProps> = ({ setCandidates }) => {
         <button onClick={() => setSelectedType(ElectionType.municipality)}>Kuntavaalit</button>
       </div>
 
-      {selectedType === ElectionType.municipality && (
+      {(isLoading && selectedType) && <div className="spinner">🔄 Ladataan...</div>}
+
+      {!isLoading && selectedType === ElectionType.municipality && (
         <div className='Selector'>
           <label>Valitse kunta:</label>
           <select onChange={handleMunicipalityChange}>
@@ -71,7 +76,7 @@ const Home: React.FC<HomeProps> = ({ setCandidates }) => {
         </div>
       )}
 
-      {selectedType === ElectionType.county && (
+      {!isLoading && selectedType === ElectionType.county && (
         <div className='Selector'>
           <label>Valitse alue:</label>
           <select onChange={handleCountyChange}>
@@ -82,7 +87,8 @@ const Home: React.FC<HomeProps> = ({ setCandidates }) => {
           </select>
         </div>
       )}
-      {(selectedType === 0 || selectedType === 1) && <button onClick={handleStartGame}>Aloita peli</button>}
+
+      {!isLoading && selectedType !== undefined && <button onClick={handleStartGame}>Aloita peli</button>}
     </div>
   );
 };
