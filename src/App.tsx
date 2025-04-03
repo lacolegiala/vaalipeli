@@ -13,7 +13,7 @@ function App() {
     <Router>
       <Routes>
         <Route path="/" element={<Home setCandidates={setCandidates} />} />
-        <Route path="/play" element={candidates.length > 0 ? <GameView candidates={candidates} /> : <Home setCandidates={setCandidates} />} />
+        <Route path="/play" element={candidates.length > 0 ? <GameView candidates={candidates} /> : <div className="spinner">🔄 Ladataan peliä...</div>} />
       </Routes>
     </Router>
   );
