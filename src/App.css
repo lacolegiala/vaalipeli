@@ -19,3 +19,9 @@ html, body {
   display: flex;
   flex-direction: column;
 }
+
+.spinner {
+  margin: 20px;
+  font-size: 1.2rem;
+  font-weight: bold;
+}
