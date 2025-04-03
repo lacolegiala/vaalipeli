@@ -62,7 +62,7 @@ const Home: React.FC<HomeProps> = ({ setCandidates }) => {
         <button onClick={() => setSelectedType(ElectionType.municipality)}>Kuntavaalit</button>
       </div>
 
-      {(isLoading && selectedType) && <div className="spinner">🔄 Ladataan...</div>}
+      {(isLoading && selectedType !== undefined) && <div className="spinner">🔄 Ladataan...</div>}
 
       {!isLoading && selectedType === ElectionType.municipality && (
         <div className='Selector'>

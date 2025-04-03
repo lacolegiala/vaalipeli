@@ -42,7 +42,7 @@ const GameView: React.FC<GameViewProps> = ({ candidates }) => {
     navigate('/')
   }
 
-  if (!gameData) return <div>Ladataan peliä...</div>;
+  if (!gameData) return <div className="spinner">Ladataan peliä...</div>;
 
   return (
     <div>
