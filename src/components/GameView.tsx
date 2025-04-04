@@ -14,17 +14,22 @@ const GameView: React.FC<GameViewProps> = ({ candidates, setCandidates }) => {
   const [score, setScore] = useState(0);
   const [game, setGame] = useState(1);
   const [gameData, setGameData] = useState<GameData | null>(null);
+  const [showMore, setShowMore] = useState<boolean>(false);
   const navigate = useNavigate();
 
   useEffect(() => {
     setGameData(generateGameData(candidates));
   }, [candidates, game]);
 
+  const roundData = gameData?.rounds[round - 1];
+  const promise = roundData?.promise ?? "";
+
   const handlePickChoice = (id: number) => {
     if (!gameData) return;
     if (id === gameData.rounds[round - 1].correctCandidateId) {
       setScore(score + 1);
     }
+    setShowMore(false)
     setRound(round + 1);
   };
 
@@ -51,8 +56,23 @@ const GameView: React.FC<GameViewProps> = ({ candidates, setCandidates }) => {
         <div>
           <h2 className="title">Kierros {round} / 10</h2>
           <div className="score">Pisteet: {score}</div>
-          <p className="subtitle">{gameData.rounds[round - 1].promise}</p>
-
+          <p className="subtitle promise">
+            {promise.length <= 150 ? (
+              promise
+            ) : (
+              <>
+                {showMore ? promise : promise.slice(0, 150) + '...'}
+                {!showMore && (
+                  <button
+                    className="showMore"
+                    onClick={() => setShowMore(true)}
+                  >
+                    Näytä koko lupaus
+                  </button>
+                )}
+              </>
+            )}
+          </p>
           <div className="button-group">
             {gameData.rounds[round - 1].candidates.map((candidate) => (
               <button key={candidate.id} className="button candidate-button" onClick={() => handlePickChoice(candidate.id)}>

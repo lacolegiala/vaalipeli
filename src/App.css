@@ -32,6 +32,30 @@ html, body {
   margin-bottom: 20px;
 }
 
+.promise {
+  background-color: #B0413E;
+  color: white;
+  border-radius: 5px;
+  padding: 20px;
+  font-weight: bolder;
+  max-height: 200px;
+  overflow-y: auto;
+  white-space: pre-wrap;
+  scroll-behavior: smooth;
+}
+
+
+.showMore {
+  padding: 2px;
+  background-color: white;
+  border-color: white;
+  border-style: hidden;
+  color: #DB8C4B;
+  font-weight: 500;
+  font-size: 16px;
+  margin-left: 2px;
+}
+
 .button-group {
   display: flex;
   justify-content: center;
@@ -133,7 +157,6 @@ html, body {
 .candidate-name {
   font-size: 1rem;
   font-weight: bold;
-  color: #333;
 }
 
 .back-button {
