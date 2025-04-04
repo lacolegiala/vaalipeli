@@ -10,16 +10,49 @@ type GameViewProps = {
 };
 
 const GameView: React.FC<GameViewProps> = ({ candidates, setCandidates }) => {
-  const [round, setRound] = useState(1);
-  const [score, setScore] = useState(0);
-  const [game, setGame] = useState(1);
-  const [gameData, setGameData] = useState<GameData | null>(null);
+  const [round, setRound] = useState(() => {
+    const saved = localStorage.getItem("round");
+    return saved ? parseInt(saved, 10) : 1;
+  });
+  
+  const [score, setScore] = useState(() => {
+    const saved = localStorage.getItem("score");
+    return saved ? parseInt(saved, 10) : 0;
+  });
+  
+  const [game, setGame] = useState(() => {
+    const saved = localStorage.getItem("game");
+    return saved ? parseInt(saved, 10) : 1;
+  });
+  
+  const [gameData, setGameData] = useState<GameData | null>(() => {
+    const saved = localStorage.getItem("gameData");
+    return saved ? JSON.parse(saved) : null;
+  });
+  
   const [showMore, setShowMore] = useState<boolean>(false);
   const navigate = useNavigate();
 
   useEffect(() => {
-    setGameData(generateGameData(candidates));
-  }, [candidates, game]);
+    localStorage.setItem("round", round.toString());
+  }, [round]);
+  
+  useEffect(() => {
+    localStorage.setItem("score", score.toString());
+  }, [score]);
+  
+  useEffect(() => {
+    if (gameData) {
+      localStorage.setItem("gameData", JSON.stringify(gameData));
+    }
+  }, [gameData]);
+  
+  useEffect(() => {
+    if (!gameData && candidates.length > 0) {
+      const generated = generateGameData(candidates);
+      setGameData(generated);
+    }
+  }, [candidates, game, gameData]);
 
   const roundData = gameData?.rounds[round - 1];
   const promise = roundData?.promise ?? "";
@@ -33,14 +66,23 @@ const GameView: React.FC<GameViewProps> = ({ candidates, setCandidates }) => {
     setRound(round + 1);
   };
 
+  const clearGameState = () => {
+    localStorage.removeItem("round");
+    localStorage.removeItem("score");
+    localStorage.removeItem("gameData");
+    localStorage.removeItem("candidates");
+  };
+  
   const handleNewGame = () => {
+    clearGameState();
     setGameData(null);
     setRound(1);
     setScore(0);
     setGame(game + 1);
   };
-
+  
   const handleBackToMainMenu = () => {
+    clearGameState();
     setGameData(null);
     setRound(1);
     setScore(0);
