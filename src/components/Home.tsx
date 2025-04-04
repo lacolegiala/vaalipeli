@@ -14,6 +14,7 @@ const Home: React.FC<HomeProps> = ({ setCandidates }) => {
   const [municipalities, setMunicipalities] = useState<Municipality[]>([]);
   const [selectedType, setSelectedType] = useState<ElectionType>();
   const [isLoading, setIsLoading] = useState(false);
+  const [isSelected, setIsSelected] = useState(false)
 
   const navigate = useNavigate();
 
@@ -36,6 +37,7 @@ const Home: React.FC<HomeProps> = ({ setCandidates }) => {
   const handleMunicipalityChange = async (event: React.ChangeEvent<HTMLSelectElement>) => {
     const selectedOption = municipalities.find(m => m.name_fi === event.target.value);
     if (!selectedOption) return;
+    setIsSelected(true)
     
     const { data: candidates } = await axios.get<Candidate[]>(`https://vaalipeli-backend.onrender.com/municipality/${selectedOption.id}/candidate-data`);
     setCandidates(candidates);
@@ -44,6 +46,7 @@ const Home: React.FC<HomeProps> = ({ setCandidates }) => {
   const handleCountyChange = async (event: React.ChangeEvent<HTMLSelectElement>) => {
     const selectedOption = counties.find(c => c.name_fi === event.target.value);
     if (!selectedOption) return;
+    setIsSelected(true)
     
     const { data: candidates } = await axios.get<Candidate[]>(`https://vaalipeli-backend.onrender.com/county/${selectedOption.id}/candidate-data`);
     setCandidates(candidates);
@@ -88,7 +91,7 @@ const Home: React.FC<HomeProps> = ({ setCandidates }) => {
       )}
 
       {(!isLoading && selectedType !== undefined) && (
-        <button className="start-button" onClick={handleStartGame}>Aloita peli</button>
+        <button disabled={!isSelected} className="start-button" onClick={handleStartGame}>Aloita peli</button>
       )}
     </div>
   );

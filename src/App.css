@@ -4,7 +4,7 @@ html, body {
   width: 100%;
   height: 100%;
   font-family: 'Arial', sans-serif;
-  background-color: #f5f5f5;
+  background-color: #FFFFC7;
   color: #333;
 }
 
@@ -46,25 +46,38 @@ html, body {
   border-radius: 5px;
   cursor: pointer;
   transition: background 0.3s;
+  background: #FCAA67;
+  color: white;
 }
 
 .button:hover {
-  background: #0056b3;
+  background: #DB8C4B;
 }
 
 .start-button {
-  background: #28a745;
+  background: #B0413E;
   color: white;
   margin-top: 20px;
 }
 
 .start-button:hover {
-  background: #1e7e34;
+  background: #93322F;
+}
+
+.start-button:disabled {
+  background: #cbafaf;
+  cursor: not-allowed;
+  pointer-events: none;
+  opacity: 0.6;
 }
 
 .again-button {
   color: white;
-  background: #28a745;
+  background: #477735;
+}
+
+.again-button:hover {
+  background: #3A5D2A;
 }
 
 .selector {
@@ -74,36 +87,39 @@ html, body {
 .dropdown {
   padding: 8px;
   font-size: 1rem;
-  border: 1px solid #ccc;
+  border: 1px solid #548687;
   border-radius: 5px;
+  background: white;
+  color: #333;
 }
 
 .spinner {
   font-size: 1.2rem;
-  color: #002fff;
+  color: #548687;
   margin-top: 20px;
 }
 
 .score {
   font-size: 1.2rem;
-  color: #007BFF;
+  color: #548687;
   font-weight: bold;
   margin-bottom: 20px;
 }
 
 .candidate-button {
   background: white;
-  border: 2px solid #007BFF;
+  border: 2px solid #548687;
   border-radius: 10px;
   padding: 10px;
   width: 200px;
   cursor: pointer;
   transition: all 0.3s ease;
   text-align: center;
+  color: #333;
 }
 
 .candidate-button:hover {
-  background: #007BFF;
+  background: #548687;
   color: white;
 }
 
@@ -117,14 +133,14 @@ html, body {
 .candidate-name {
   font-size: 1rem;
   font-weight: bold;
+  color: #333;
 }
 
 .back-button {
-  background: #dc3545;
+  background: #B0413E;
   color: white;
 }
 
 .back-button:hover {
-  background: #c82333;
+  background: #93322F;
 }
-
