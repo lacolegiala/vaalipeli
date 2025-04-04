@@ -67,9 +67,8 @@ const Home: React.FC<HomeProps> = ({ setCandidates }) => {
 
       {!isLoading && selectedType === ElectionType.municipality && (
         <div className="selector">
-          <label>Valitse kunta:</label>
           <select className="dropdown" onChange={handleMunicipalityChange}>
-            <option value="" disabled>-- Valitse kunta --</option>
+            <option value="" disabled selected>-- Valitse kunta --</option>
             {municipalities.map(m => (
               <option key={m.id} value={m.name_fi}>{m.name_fi}</option>
             ))}
@@ -79,9 +78,8 @@ const Home: React.FC<HomeProps> = ({ setCandidates }) => {
 
       {!isLoading && selectedType === ElectionType.county && (
         <div className="selector">
-          <label>Valitse alue:</label>
           <select className="dropdown" onChange={handleCountyChange}>
-            <option value="" disabled>-- Valitse alue --</option>
+            <option value="" disabled selected>-- Valitse alue --</option>
             {counties.map(c => (
               <option key={c.id} value={c.name_fi}>{c.name_fi}</option>
             ))}
