@@ -19,7 +19,7 @@ const Home: React.FC<HomeProps> = ({ setCandidates }) => {
 
   useEffect(() => {
     async function getBaseData() {
-      setIsLoading(true)
+      setIsLoading(true);
       try {
         const { data: countyData } = await axios.get<County[]>('https://vaalipeli-backend.onrender.com/counties');
         setCounties(countyData);
@@ -28,7 +28,7 @@ const Home: React.FC<HomeProps> = ({ setCandidates }) => {
       } catch (error) {
         console.error("Error fetching game data", error);
       }
-      setIsLoading(false)
+      setIsLoading(false);
     }
     getBaseData();
   }, []);
@@ -54,20 +54,21 @@ const Home: React.FC<HomeProps> = ({ setCandidates }) => {
   };
 
   return (
-    <div>
-      <div>
-        <h1>Tervetuloa vaalipeliin!</h1>
-        <h2>Valitse vaalityyppi:</h2>
-        <button onClick={() => setSelectedType(ElectionType.county)}>Aluevaalit</button>
-        <button onClick={() => setSelectedType(ElectionType.municipality)}>Kuntavaalit</button>
+    <div className="home-container">
+      <h1 className="title">Tervetuloa vaalipeliin!</h1>
+      <h2 className="subtitle">Valitse vaalityyppi:</h2>
+      
+      <div className="button-group">
+        <button className="button" onClick={() => setSelectedType(ElectionType.county)}>Aluevaalit</button>
+        <button className="button" onClick={() => setSelectedType(ElectionType.municipality)}>Kuntavaalit</button>
       </div>
 
-      {(isLoading && selectedType !== undefined) && <div className="spinner">🔄 Ladataan...</div>}
+      {isLoading && selectedType && <div className="spinner">🔄 Ladataan...</div>}
 
       {!isLoading && selectedType === ElectionType.municipality && (
-        <div className='Selector'>
+        <div className="selector">
           <label>Valitse kunta:</label>
-          <select onChange={handleMunicipalityChange}>
+          <select className="dropdown" onChange={handleMunicipalityChange}>
             <option value="" disabled>-- Valitse kunta --</option>
             {municipalities.map(m => (
               <option key={m.id} value={m.name_fi}>{m.name_fi}</option>
@@ -77,9 +78,9 @@ const Home: React.FC<HomeProps> = ({ setCandidates }) => {
       )}
 
       {!isLoading && selectedType === ElectionType.county && (
-        <div className='Selector'>
+        <div className="selector">
           <label>Valitse alue:</label>
-          <select onChange={handleCountyChange}>
+          <select className="dropdown" onChange={handleCountyChange}>
             <option value="" disabled>-- Valitse alue --</option>
             {counties.map(c => (
               <option key={c.id} value={c.name_fi}>{c.name_fi}</option>
@@ -88,7 +89,9 @@ const Home: React.FC<HomeProps> = ({ setCandidates }) => {
         </div>
       )}
 
-      {!isLoading && selectedType !== undefined && <button onClick={handleStartGame}>Aloita peli</button>}
+      {(!isLoading && selectedType !== undefined) && (
+        <button className="start-button" onClick={handleStartGame}>Aloita peli</button>
+      )}
     </div>
   );
 };

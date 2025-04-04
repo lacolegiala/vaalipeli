@@ -20,8 +20,66 @@ html, body {
   flex-direction: column;
 }
 
+.title {
+  font-size: 2rem;
+  color: #333;
+  margin-bottom: 10px;
+}
+
+.subtitle {
+  font-size: 1.5rem;
+  color: #555;
+  margin-bottom: 20px;
+}
+
+.button-group {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.button, .start-button {
+  padding: 10px 20px;
+  font-size: 1rem;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+.button {
+  background: #007BFF;
+  color: white;
+}
+
+.button:hover {
+  background: #0056b3;
+}
+
+.start-button {
+  background: #28a745;
+  color: white;
+  margin-top: 20px;
+}
+
+.start-button:hover {
+  background: #1e7e34;
+}
+
+.selector {
+  margin-top: 20px;
+}
+
+.dropdown {
+  padding: 8px;
+  font-size: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
 .spinner {
-  margin: 20px;
   font-size: 1.2rem;
-  font-weight: bold;
+  color: #002fff;
+  margin-top: 20px;
 }

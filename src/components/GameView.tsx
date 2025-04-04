@@ -6,9 +6,10 @@ import { generateGameData } from "../utils/generateGameData";
 
 type GameViewProps = {
   candidates: Candidate[];
+  setCandidates: (candidates: Candidate[]) => void;
 };
 
-const GameView: React.FC<GameViewProps> = ({ candidates }) => {
+const GameView: React.FC<GameViewProps> = ({ candidates, setCandidates }) => {
   const [round, setRound] = useState(1);
   const [score, setScore] = useState(0);
   const [game, setGame] = useState(1)
@@ -16,6 +17,7 @@ const GameView: React.FC<GameViewProps> = ({ candidates }) => {
   const navigate = useNavigate();
 
   useEffect(() => {
+    console.log(candidates)
     setGameData(generateGameData(candidates));
   }, [candidates, game]);
 
@@ -39,6 +41,7 @@ const GameView: React.FC<GameViewProps> = ({ candidates }) => {
     setGameData(null)
     setRound(1)
     setScore(0)
+    setCandidates([])
     navigate('/')
   }
 
