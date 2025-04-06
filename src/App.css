@@ -159,6 +159,23 @@ html, body {
   font-weight: bold;
 }
 
+.correct {
+  background-color: #4CAF50 !important;
+  color: white;
+  transition: background-color 0.3s ease;
+}
+
+.incorrect {
+  background-color: #F44336 !important;
+  color: white;
+  transition: background-color 0.3s ease;
+}
+
+.candidate-button:disabled {
+  pointer-events: none;
+  opacity: 0.8;
+}
+
 .back-button {
   background: #B0413E;
   color: white;

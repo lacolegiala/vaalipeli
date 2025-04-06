@@ -31,6 +31,10 @@ const GameView: React.FC<GameViewProps> = ({ candidates, setCandidates }) => {
   });
   
   const [showMore, setShowMore] = useState<boolean>(false);
+  const [selectedCandidateId, setSelectedCandidateId] = useState<number | null>(null);
+  const [isCorrect, setIsCorrect] = useState<boolean | null>(null);
+  const [isFeedbackVisible, setIsFeedbackVisible] = useState(false);
+
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -59,12 +63,25 @@ const GameView: React.FC<GameViewProps> = ({ candidates, setCandidates }) => {
 
   const handlePickChoice = (id: number) => {
     if (!gameData) return;
-    if (id === gameData.rounds[round - 1].correctCandidateId) {
-      setScore(score + 1);
+  
+    const correct = id === gameData.rounds[round - 1].correctCandidateId;
+    setSelectedCandidateId(id);
+    setIsCorrect(correct);
+    setIsFeedbackVisible(true);
+  
+    if (correct) {
+      setScore((prev) => prev + 1);
     }
-    setShowMore(false)
-    setRound(round + 1);
+  
+    setTimeout(() => {
+      setShowMore(false);
+      setRound((prev) => prev + 1);
+      setSelectedCandidateId(null);
+      setIsCorrect(null);
+      setIsFeedbackVisible(false);
+    }, 1000);
   };
+  
 
   const clearGameState = () => {
     localStorage.removeItem("round");
@@ -97,7 +114,9 @@ const GameView: React.FC<GameViewProps> = ({ candidates, setCandidates }) => {
       {round <= 10 ? (
         <div>
           <h2 className="title">Kierros {round} / 10</h2>
-          <div className="score">Pisteet: {score}</div>
+          <div className={`score ${isFeedbackVisible ? (isCorrect ? "correct" : "incorrect") : ""}`}>
+            Pisteet: {score}
+          </div>
           <p className="subtitle promise">
             {promise.length <= 150 ? (
               promise
@@ -117,8 +136,23 @@ const GameView: React.FC<GameViewProps> = ({ candidates, setCandidates }) => {
           </p>
           <div className="button-group">
             {gameData.rounds[round - 1].candidates.map((candidate) => (
-              <button key={candidate.id} className="button candidate-button" onClick={() => handlePickChoice(candidate.id)}>
-                <img className="candidate-image" src={`https://vaalikone.yle.fi/${candidate.image}`} alt={`${candidate.first_name} ${candidate.last_name}`} />
+              <button
+                key={candidate.id}
+                className={`button candidate-button ${
+                  isFeedbackVisible && candidate.id === selectedCandidateId
+                    ? isCorrect
+                      ? "correct"
+                      : "incorrect"
+                    : ""
+                }`}
+                onClick={() => handlePickChoice(candidate.id)}
+                disabled={isFeedbackVisible}
+              >
+                <img
+                  className="candidate-image"
+                  src={`https://vaalikone.yle.fi/${candidate.image}`}
+                  alt={`${candidate.first_name} ${candidate.last_name}`}
+                />
                 <h3 className="candidate-name">{candidate.first_name} {candidate.last_name}</h3>
               </button>
             ))}
