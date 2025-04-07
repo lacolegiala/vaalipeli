@@ -110,7 +110,7 @@ const GameView: React.FC<GameViewProps> = ({ candidates, setCandidates }) => {
   if (!gameData) return <div className="spinner">Ladataan peliä...</div>;
 
   return (
-    <div className="">
+    <div>
       {round <= 10 ? (
         <div className="container">
           <h2 className="title">Kierros {round} / 10</h2>
