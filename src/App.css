@@ -20,6 +20,10 @@ html, body {
   flex-direction: column;
 }
 
+.container {
+  box-sizing: border-box;
+}
+
 .title {
   font-size: 2rem;
   color: #333;
@@ -61,6 +65,14 @@ html, body {
   justify-content: center;
   gap: 10px;
   margin-bottom: 20px;
+}
+
+.candidate-cards {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-bottom: 20px;
+  
 }
 
 .button {
@@ -183,4 +195,14 @@ html, body {
 
 .back-button:hover {
   background: #93322F;
+}
+
+@media (max-width: 700px) {
+  .promise {
+    max-width: 300px;
+  }
+
+  .candidate-cards {
+    display: grid;
+  }
 }

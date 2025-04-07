@@ -110,9 +110,9 @@ const GameView: React.FC<GameViewProps> = ({ candidates, setCandidates }) => {
   if (!gameData) return <div className="spinner">Ladataan peliä...</div>;
 
   return (
-    <div className="container">
+    <div className="">
       {round <= 10 ? (
-        <div>
+        <div className="container">
           <h2 className="title">Kierros {round} / 10</h2>
           <div className={`score ${isFeedbackVisible ? (isCorrect ? "correct" : "incorrect") : ""}`}>
             Pisteet: {score}
@@ -134,7 +134,7 @@ const GameView: React.FC<GameViewProps> = ({ candidates, setCandidates }) => {
               </>
             )}
           </p>
-          <div className="button-group">
+          <div className="candidate-cards">
             {gameData.rounds[round - 1].candidates.map((candidate) => (
               <button
                 key={candidate.id}
