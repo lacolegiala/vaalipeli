@@ -87,7 +87,6 @@ const GameView: React.FC<GameViewProps> = ({ candidates, setCandidates }) => {
     localStorage.removeItem("round");
     localStorage.removeItem("score");
     localStorage.removeItem("gameData");
-    localStorage.removeItem("candidates");
   };
   
   const handleNewGame = () => {
@@ -99,6 +98,7 @@ const GameView: React.FC<GameViewProps> = ({ candidates, setCandidates }) => {
   };
   
   const handleBackToMainMenu = () => {
+    localStorage.removeItem("candidates");
     clearGameState();
     setGameData(null);
     setRound(1);
