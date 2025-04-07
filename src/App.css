@@ -236,8 +236,11 @@ html, body {
   }
 
   .candidate-cards {
-    display: grid;
     font-size: 16px;
+  }
+
+  .candidate-button {
+    width: 100%;
   }
 
   .result-item {
