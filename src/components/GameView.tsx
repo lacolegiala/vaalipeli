@@ -119,10 +119,10 @@ const GameView: React.FC<GameViewProps> = ({ candidates, setCandidates }) => {
           </div>
           <p className="subtitle promise">
             {promise.length <= 150 ? (
-              promise
+              `”${promise}”`
             ) : (
               <>
-                {showMore ? promise : promise.slice(0, 150) + '...'}
+                {showMore ? `”${promise}` : `”${promise.slice(0, 150)}` + '...”'}
                 {!showMore && (
                   <button
                     className="showMore"
@@ -161,7 +161,7 @@ const GameView: React.FC<GameViewProps> = ({ candidates, setCandidates }) => {
       ) : (
         <div>
           <h2 className="title">Peli ohi!</h2>
-          <p className="subtitle">Lopullinen pistemäärä: {score}</p>
+          <p className="subtitle">Lopullinen pistemäärä: {score} / 10</p>
           <div className="button-group">
             <button className="again-button" onClick={handleNewGame}>Uudestaan!</button>
             <button className="button back-button" onClick={handleBackToMainMenu}>Takaisin päävalikkoon</button>
