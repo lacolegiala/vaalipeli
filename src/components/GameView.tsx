@@ -166,6 +166,32 @@ const GameView: React.FC<GameViewProps> = ({ candidates, setCandidates }) => {
             <button className="again-button" onClick={handleNewGame}>Uudestaan!</button>
             <button className="button back-button" onClick={handleBackToMainMenu}>Takaisin päävalikkoon</button>
           </div>
+          <div className="results-list">
+            {gameData.rounds.map((roundItem, index) => (
+              <div key={index} className="result-item">
+                <p className="promise">{roundItem.promise}</p>
+                <div className="candidate-cards result-cards">
+                  {roundItem.candidates.map((candidate) => (
+                    <div
+                      key={candidate.id}
+                      className={`candidate-button small-card ${
+                        candidate.id === roundItem.correctCandidateId ? 'correct' : ''
+                      }`}
+                    >
+                      <img
+                        className="candidate-image"
+                        src={`https://vaalikone.yle.fi/${candidate.image}`}
+                        alt={`${candidate.first_name} ${candidate.last_name}`}
+                      />
+                      <h3 className="candidate-name">
+                        {candidate.first_name} {candidate.last_name}
+                      </h3>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            ))}
+          </div>
         </div>
       )}
     </div>
