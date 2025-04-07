@@ -3,7 +3,7 @@ import '../App.css';
 import React from 'react';
 import axios from 'axios';
 import { Candidate, County, ElectionType, Municipality } from '../types';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 type HomeProps = {
   setCandidates: (candidates: Candidate[]) => void;
@@ -17,6 +17,12 @@ const Home: React.FC<HomeProps> = ({ setCandidates }) => {
   const [isSelected, setIsSelected] = useState(false)
 
   const navigate = useNavigate();
+  const location = useLocation();
+
+  useEffect(() => {
+    localStorage.clear();
+    setCandidates([]);
+  }, [location.pathname]);
 
   useEffect(() => {
     async function getBaseData() {
