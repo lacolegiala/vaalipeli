@@ -122,7 +122,7 @@ const GameView: React.FC<GameViewProps> = ({ candidates, setCandidates }) => {
               `”${promise}”`
             ) : (
               <>
-                {showMore ? `”${promise}` : `”${promise.slice(0, 150)}` + '...”'}
+                {showMore ? `”${promise}”` : `”${promise.slice(0, 150)}` + '...'}
                 {!showMore && (
                   <button
                     className="showMore"
