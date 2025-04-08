@@ -14,43 +14,55 @@ const GameView: React.FC<GameViewProps> = ({ candidates, setCandidates }) => {
     const saved = localStorage.getItem("round");
     return saved ? parseInt(saved, 10) : 1;
   });
-  
+
   const [score, setScore] = useState(() => {
     const saved = localStorage.getItem("score");
     return saved ? parseInt(saved, 10) : 0;
   });
-  
+
   const [game, setGame] = useState(() => {
     const saved = localStorage.getItem("game");
     return saved ? parseInt(saved, 10) : 1;
   });
-  
+
   const [gameData, setGameData] = useState<GameData | null>(() => {
     const saved = localStorage.getItem("gameData");
     return saved ? JSON.parse(saved) : null;
   });
-  
+
   const [showMore, setShowMore] = useState<boolean>(false);
-  const [selectedCandidateId, setSelectedCandidateId] = useState<number | null>(null);
+  const [selectedCandidateId, setSelectedCandidateId] = useState<number | null>(
+    null
+  );
   const [isCorrect, setIsCorrect] = useState<boolean | null>(null);
   const [isFeedbackVisible, setIsFeedbackVisible] = useState(false);
+  const [userAnswers, setUserAnswers] = useState<
+    { round: number; selectedId: number }[]
+  >(() => {
+    const saved = localStorage.getItem("userAnswers");
+    return saved ? JSON.parse(saved) : [];
+  });
 
   const navigate = useNavigate();
 
   useEffect(() => {
     localStorage.setItem("round", round.toString());
   }, [round]);
-  
+
   useEffect(() => {
     localStorage.setItem("score", score.toString());
   }, [score]);
-  
+
   useEffect(() => {
     if (gameData) {
       localStorage.setItem("gameData", JSON.stringify(gameData));
     }
   }, [gameData]);
-  
+
+  useEffect(() => {
+    localStorage.setItem("userAnswers", JSON.stringify(userAnswers));
+  }, [userAnswers]);
+
   useEffect(() => {
     if (!gameData && candidates.length > 0) {
       const generated = generateGameData(candidates);
@@ -63,16 +75,17 @@ const GameView: React.FC<GameViewProps> = ({ candidates, setCandidates }) => {
 
   const handlePickChoice = (id: number) => {
     if (!gameData) return;
-  
+
     const correct = id === gameData.rounds[round - 1].correctCandidateId;
     setSelectedCandidateId(id);
     setIsCorrect(correct);
     setIsFeedbackVisible(true);
-  
+    setUserAnswers((prev) => [...prev, { round, selectedId: id }]);
+
     if (correct) {
       setScore((prev) => prev + 1);
     }
-  
+
     setTimeout(() => {
       setShowMore(false);
       setRound((prev) => prev + 1);
@@ -81,11 +94,12 @@ const GameView: React.FC<GameViewProps> = ({ candidates, setCandidates }) => {
       setIsFeedbackVisible(false);
     }, 1000);
   };
-  
+
   const getFeedbackMessage = (score: number): string => {
     if (score === 0) return "Tietämättömyytesi on jo vaikuttavaa 🤩";
     if (score <= 2) return "Arvatenkin et vielä tiedä, ketä aiot äänestää? 🙂";
-    if (score <= 4) return "Muutama oikein, mutta et selvästikään ole politiikan taituri 🤷‍♀️";
+    if (score <= 4)
+      return "Muutama oikein, mutta et selvästikään ole politiikan taituri 🤷‍♀️";
     if (score <= 7) return "Olet jo jonkin verran jyvällä 😜";
     if (score <= 9) return "Sivistynyt, keskivertoihmistä parempi 😎";
     return "Onnittelut, olet ✨vaalipelimestari✨ valitettavasti emme jaa palkintoja 😘";
@@ -95,19 +109,22 @@ const GameView: React.FC<GameViewProps> = ({ candidates, setCandidates }) => {
     localStorage.removeItem("round");
     localStorage.removeItem("score");
     localStorage.removeItem("gameData");
+    localStorage.removeItem("userAnswers");
   };
-  
+
   const handleNewGame = () => {
     clearGameState();
+    setUserAnswers([])
     setGameData(null);
     setRound(1);
     setScore(0);
     setGame(game + 1);
   };
-  
+
   const handleBackToMainMenu = () => {
     localStorage.removeItem("candidates");
     clearGameState();
+    setUserAnswers([])
     setGameData(null);
     setRound(1);
     setScore(0);
@@ -123,17 +140,25 @@ const GameView: React.FC<GameViewProps> = ({ candidates, setCandidates }) => {
         <div className="container">
           <div className="upper-info">
             <h2 className="title">Kierros {round} / 10</h2>
-            <div className={`score ${isFeedbackVisible ? (isCorrect ? "correct" : "incorrect") : ""}`}>
+            <div
+              className={`score ${
+                isFeedbackVisible ? (isCorrect ? "correct" : "incorrect") : ""
+              }`}
+            >
               Pisteet: {score}
             </div>
             <h3>Kumman ehdokkaan lupaus? 🤔</h3>
           </div>
           <p className="subtitle promise">
             {promise.length <= 90 ? (
-              promise ? `”${promise}”` : 'Ei vaalilupausta 🥲'
+              promise ? (
+                `”${promise}”`
+              ) : (
+                "Ei vaalilupausta 🥲"
+              )
             ) : (
               <>
-                {showMore ? `”${promise}”` : `”${promise.slice(0, 90)}` + '...'}
+                {showMore ? `”${promise}”` : `”${promise.slice(0, 90)}` + "..."}
                 {!showMore && (
                   <button
                     className="showMore"
@@ -164,7 +189,10 @@ const GameView: React.FC<GameViewProps> = ({ candidates, setCandidates }) => {
                   src={`https://vaalikone.yle.fi/${candidate.image}`}
                   alt={`${candidate.first_name} ${candidate.last_name}`}
                 />
-                <h3 className="candidate-name">{candidate.first_name} {candidate.last_name}, {candidate.party_name}</h3>
+                <h3 className="candidate-name">
+                  {candidate.first_name} {candidate.last_name},{" "}
+                  {candidate.party_name}
+                </h3>
               </button>
             ))}
           </div>
@@ -177,35 +205,59 @@ const GameView: React.FC<GameViewProps> = ({ candidates, setCandidates }) => {
             <p className="feedback-text">{getFeedbackMessage(score)}</p>
           </div>
           <div className="button-group">
-            <button className="again-button" onClick={handleNewGame}>Uudestaan!</button>
-            <button className="button back-button" onClick={handleBackToMainMenu}>Takaisin päävalikkoon</button>
+            <button className="again-button" onClick={handleNewGame}>
+              Uudestaan!
+            </button>
+            <button
+              className="button back-button"
+              onClick={handleBackToMainMenu}
+            >
+              Takaisin päävalikkoon
+            </button>
           </div>
           <h3 className="subtitle">Oikeat vastaukset:</h3>
           <div className="results-list">
-            {gameData.rounds.map((roundItem, index) => (
-              <div key={index} className="result-item">
-                <p className="promise">”{roundItem.promise}”</p>
-                <div className="candidate-cards result-cards">
-                  {roundItem.candidates.map((candidate) => (
-                    <div
-                      key={candidate.id}
-                      className={`candidate-button small-card ${
-                        candidate.id === roundItem.correctCandidateId ? 'correct' : ''
-                      }`}
-                    >
-                      <img
-                        className="candidate-image"
-                        src={`https://vaalikone.yle.fi/${candidate.image}`}
-                        alt={`${candidate.first_name} ${candidate.last_name}`}
-                      />
-                      <h3 className="candidate-name">
-                        {candidate.first_name} {candidate.last_name}, {candidate.party_name}
-                      </h3>
-                    </div>
-                  ))}
+            {gameData.rounds.map((roundItem, index) => {
+              const userAnswer = userAnswers.find((a) => a.round === index + 1);
+              const isUserCorrect =
+                userAnswer?.selectedId === roundItem.correctCandidateId;
+
+              return (
+                <div
+                  key={index}
+                  className={`result-item ${
+                    isUserCorrect ? "result-correct" : "result-incorrect"
+                  }`}
+                >
+                  <p className="promise">”{roundItem.promise}”</p>
+                  <div className="candidate-cards result-cards">
+                    {roundItem.candidates.map((candidate) => {
+                      const isCorrect =
+                        candidate.id === roundItem.correctCandidateId;
+
+                      return (
+                        <div
+                          key={candidate.id}
+                          className={`candidate-button small-card ${
+                            isCorrect ? "correct" : ""
+                          }`}
+                        >
+                          <img
+                            className="candidate-image"
+                            src={`https://vaalikone.yle.fi/${candidate.image}`}
+                            alt={`${candidate.first_name} ${candidate.last_name}`}
+                          />
+                          <h3 className="candidate-name">
+                            {candidate.first_name} {candidate.last_name},{" "}
+                            {candidate.party_name}
+                          </h3>
+                        </div>
+                      );
+                    })}
+                  </div>
                 </div>
-              </div>
-            ))}
+              );
+            })}
           </div>
         </div>
       )}

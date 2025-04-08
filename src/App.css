@@ -272,6 +272,16 @@ html, body {
   gap: 10px;
 }
 
+.result-correct {
+  background-color: #d4edda;
+  border-left: 5px solid #4CAF50;
+}
+
+.result-incorrect {
+  background-color: #f8d7da;
+  border-left: 5px solid #F44336;
+}
+
 .small-card {
   width: 150px;
   padding: 8px;
