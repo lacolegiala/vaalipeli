@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Candidate, CandidateWithParty, GameData } from "../types";
+import { CandidateWithParty, GameData } from "../types";
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import { generateGameData } from "../utils/generateGameData";
@@ -82,6 +82,14 @@ const GameView: React.FC<GameViewProps> = ({ candidates, setCandidates }) => {
     }, 1000);
   };
   
+  const getFeedbackMessage = (score: number): string => {
+    if (score === 0) return "Tietämättömyytesi on jo vaikuttavaa 🤩";
+    if (score <= 2) return "Arvatenkin et vielä tiedä, ketä aiot äänestää? 🙂";
+    if (score <= 4) return "Muutama oikein, mutta et selvästikään ole politiikan taituri 🤷‍♀️";
+    if (score <= 7) return "Olet jo jonkin verran jyvällä 😜";
+    if (score <= 9) return "Sivistynyt, keskivertoihmistä parempi 😎";
+    return "Onnittelut, olet ✨vaalipelimestari✨ valitettavasti emme jaa palkintoja 😘";
+  };
 
   const clearGameState = () => {
     localStorage.removeItem("round");
@@ -164,7 +172,10 @@ const GameView: React.FC<GameViewProps> = ({ candidates, setCandidates }) => {
       ) : (
         <div>
           <h2 className="title">Peli ohi!</h2>
-          <p className="subtitle">Lopullinen pistemäärä: {score} / 10</p>
+          <div className="feedback-box">
+            <h2 className="feedback-text">Pisteet: {score} / 10</h2>
+            <p className="feedback-text">{getFeedbackMessage(score)}</p>
+          </div>
           <div className="button-group">
             <button className="again-button" onClick={handleNewGame}>Uudestaan!</button>
             <button className="button back-button" onClick={handleBackToMainMenu}>Takaisin päävalikkoon</button>
