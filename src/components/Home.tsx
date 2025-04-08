@@ -85,7 +85,7 @@ const Home: React.FC<HomeProps> = ({ setCandidates }) => {
   };
 
   return (
-    <div className="home-container">
+    <div>
       <h1 className="title">✨ Vaalipeli ✨</h1>
       <div className="info-box">
         <p>

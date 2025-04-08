@@ -183,7 +183,7 @@ const GameView: React.FC<GameViewProps> = ({ candidates, setCandidates }) => {
           <div className="results-list">
             {gameData.rounds.map((roundItem, index) => (
               <div key={index} className="result-item">
-                <p className="promise">{roundItem.promise}</p>
+                <p className="promise">”{roundItem.promise}”</p>
                 <div className="candidate-cards result-cards">
                   {roundItem.candidates.map((candidate) => (
                     <div
