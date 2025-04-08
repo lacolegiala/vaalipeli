@@ -41,9 +41,9 @@ html, body {
 
 .subtitle {
   font-size: 1.5rem;
-  color: #555;
+  color: #444444;
   margin-bottom: 20px;
-  text-shadow: 1px 1px 2px rgb(156 172 186);
+  text-shadow: 1px 1px 2px rgb(171, 155, 68);
 }
 
 .info-box {

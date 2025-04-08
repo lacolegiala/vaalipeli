@@ -180,6 +180,7 @@ const GameView: React.FC<GameViewProps> = ({ candidates, setCandidates }) => {
             <button className="again-button" onClick={handleNewGame}>Uudestaan!</button>
             <button className="button back-button" onClick={handleBackToMainMenu}>Takaisin päävalikkoon</button>
           </div>
+          <h3 className="subtitle">Oikeat vastaukset:</h3>
           <div className="results-list">
             {gameData.rounds.map((roundItem, index) => (
               <div key={index} className="result-item">
