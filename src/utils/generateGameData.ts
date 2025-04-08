@@ -1,11 +1,11 @@
-import { Candidate, GameData, Round } from "../types";
+import { Candidate, CandidateWithParty, GameData, Round } from "../types";
 
-export function generateGameData(candidates: Candidate[]): GameData {
+export function generateGameData(candidates: CandidateWithParty[]): GameData {
     if (candidates.length === 0) throw new Error("Candidate array cannot be empty");
 
     const shuffled = candidates.sort(() => 0.5 - Math.random())
   
-    const selectedCandidates: Candidate[] = [];
+    const selectedCandidates: CandidateWithParty[] = [];
     while (selectedCandidates.length < 20) {
       selectedCandidates.push(...shuffled);
     }

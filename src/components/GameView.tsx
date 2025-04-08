@@ -1,12 +1,12 @@
 import { useEffect, useState } from "react";
-import { Candidate, GameData } from "../types";
+import { Candidate, CandidateWithParty, GameData } from "../types";
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import { generateGameData } from "../utils/generateGameData";
 
 type GameViewProps = {
-  candidates: Candidate[];
-  setCandidates: (candidates: Candidate[]) => void;
+  candidates: CandidateWithParty[];
+  setCandidates: (candidates: CandidateWithParty[]) => void;
 };
 
 const GameView: React.FC<GameViewProps> = ({ candidates, setCandidates }) => {
@@ -153,7 +153,7 @@ const GameView: React.FC<GameViewProps> = ({ candidates, setCandidates }) => {
                   src={`https://vaalikone.yle.fi/${candidate.image}`}
                   alt={`${candidate.first_name} ${candidate.last_name}`}
                 />
-                <h3 className="candidate-name">{candidate.first_name} {candidate.last_name}</h3>
+                <h3 className="candidate-name">{candidate.first_name} {candidate.last_name}, {candidate.party_name}</h3>
               </button>
             ))}
           </div>
@@ -184,7 +184,7 @@ const GameView: React.FC<GameViewProps> = ({ candidates, setCandidates }) => {
                         alt={`${candidate.first_name} ${candidate.last_name}`}
                       />
                       <h3 className="candidate-name">
-                        {candidate.first_name} {candidate.last_name}
+                        {candidate.first_name} {candidate.last_name}, {candidate.party_name}
                       </h3>
                     </div>
                   ))}

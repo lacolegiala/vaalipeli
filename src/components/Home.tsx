@@ -2,11 +2,11 @@ import { useEffect, useState } from 'react';
 import '../App.css';
 import React from 'react';
 import axios from 'axios';
-import { Candidate, County, ElectionType, Municipality } from '../types';
+import { Candidate, CandidateWithParty, County, ElectionType, Municipality, Party } from '../types';
 import { useLocation, useNavigate } from 'react-router-dom';
 
 type HomeProps = {
-  setCandidates: (candidates: Candidate[]) => void;
+  setCandidates: (candidates: CandidateWithParty[]) => void;
 };
 
 const Home: React.FC<HomeProps> = ({ setCandidates }) => {
@@ -43,10 +43,21 @@ const Home: React.FC<HomeProps> = ({ setCandidates }) => {
   const handleMunicipalityChange = async (event: React.ChangeEvent<HTMLSelectElement>) => {
     const selectedOption = municipalities.find(m => m.name_fi === event.target.value);
     if (!selectedOption) return;
-    setIsSelected(true)
-    
-    const { data: candidates } = await axios.get<Candidate[]>(`https://vaalipeli-backend.onrender.com/municipality/${selectedOption.id}/candidate-data`);
-    setCandidates(candidates);
+    setIsSelected(true);
+  
+    const [{ data: parties }, { data: candidates }] = await Promise.all([
+      axios.get<Party[]>(`https://vaalipeli-backend.onrender.com/municipality/${selectedOption.id}/parties`),
+      axios.get<Candidate[]>(`https://vaalipeli-backend.onrender.com/municipality/${selectedOption.id}/candidate-data`)
+    ]);
+
+    const partyMap = Object.fromEntries(parties.map(p => [p.id, { name: p.short_name_fi }]));
+  
+    const enrichedCandidates = candidates.map(candidate => ({
+      ...candidate,
+      party_name: partyMap[candidate.party_id]?.name || "Tuntematon puolue"
+    }));
+
+    setCandidates(enrichedCandidates);
   };
 
   const handleCountyChange = async (event: React.ChangeEvent<HTMLSelectElement>) => {
@@ -54,8 +65,19 @@ const Home: React.FC<HomeProps> = ({ setCandidates }) => {
     if (!selectedOption) return;
     setIsSelected(true)
     
-    const { data: candidates } = await axios.get<Candidate[]>(`https://vaalipeli-backend.onrender.com/county/${selectedOption.id}/candidate-data`);
-    setCandidates(candidates);
+    const [{ data: parties }, { data: candidates }] = await Promise.all([
+      axios.get<Party[]>(`https://vaalipeli-backend.onrender.com/county/${selectedOption.id}/parties`),
+      axios.get<Candidate[]>(`https://vaalipeli-backend.onrender.com/county/${selectedOption.id}/candidate-data`)
+    ]);
+
+    const partyMap = Object.fromEntries(parties.map(p => [p.id, { name: p.short_name_fi }]));
+  
+    const enrichedCandidates = candidates.map(candidate => ({
+      ...candidate,
+      party_name: partyMap[candidate.party_id]?.name || "Tuntematon puolue"
+    }));
+
+    setCandidates(enrichedCandidates);
   };
 
   const handleStartGame = () => {

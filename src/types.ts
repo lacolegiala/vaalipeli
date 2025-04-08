@@ -7,6 +7,16 @@ export type Candidate = {
   info: Info
 }
 
+export type CandidateWithParty = {
+  id: number,
+  first_name: string,
+  last_name: string,
+  image: string,
+  party_id: number,
+  party_name: string,
+  info: Info
+}
+
 export type Info = {
   age: number,
   county_fix: {
@@ -42,6 +52,7 @@ export type County = {
 export type Party = {
   id: number,
   name_fi: string,
+  short_name_fi: string,
   color: string
 }
 
@@ -51,7 +62,7 @@ export enum ElectionType {
 }
 
 export type Round = {
-  candidates: Candidate[],
+  candidates: CandidateWithParty[],
   correctCandidateId: number,
   promise?: string
 }

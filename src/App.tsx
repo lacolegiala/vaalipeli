@@ -4,12 +4,12 @@ import React from 'react';
 import { HashRouter as Router, Routes, Route } from 'react-router-dom';
 import Home from './components/Home';
 import GameView from './components/GameView';
-import { Candidate } from './types';
+import { Candidate, CandidateWithParty } from './types';
 
 function App() {
-  const [candidates, setCandidatesState] = useState<Candidate[]>([]);
+  const [candidates, setCandidatesState] = useState<CandidateWithParty[]>([]);
 
-  const setCandidates = (candidates: Candidate[]) => {
+  const setCandidates = (candidates: CandidateWithParty[]) => {
     setCandidatesState(candidates);
     localStorage.setItem("candidates", JSON.stringify(candidates));
   };
