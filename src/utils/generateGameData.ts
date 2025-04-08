@@ -27,7 +27,7 @@ export function generateGameData(candidates: CandidateWithParty[]): GameData {
 
       const selectedPromise = promises.length > 0 ? promises[Math.floor(Math.random() * promises.length)] : null;
 
-      const finalPromise = selectedPromise?.fi || selectedPromise?.se || "Ei vaalilupausta :O";
+      const finalPromise = selectedPromise?.fi || selectedPromise?.se || null
   
       rounds.push({
         candidates: [candidate1, candidate2],

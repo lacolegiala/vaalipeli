@@ -64,7 +64,7 @@ export enum ElectionType {
 export type Round = {
   candidates: CandidateWithParty[],
   correctCandidateId: number,
-  promise?: string
+  promise?: string | null
 }
 
 export type GameData = {

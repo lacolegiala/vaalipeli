@@ -129,11 +129,11 @@ const GameView: React.FC<GameViewProps> = ({ candidates, setCandidates }) => {
             <h3 className="question">Kumman ehdokkaan lupaus? 🤔</h3>
           </div>
           <p className="subtitle promise">
-            {promise.length <= 150 ? (
-              `”${promise}”`
+            {promise.length <= 90 ? (
+              promise ? `”${promise}”` : 'Ei vaalilupausta 🥲'
             ) : (
               <>
-                {showMore ? `”${promise}”` : `”${promise.slice(0, 150)}` + '...'}
+                {showMore ? `”${promise}”` : `”${promise.slice(0, 90)}` + '...'}
                 {!showMore && (
                   <button
                     className="showMore"
