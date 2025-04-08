@@ -55,7 +55,7 @@ html, body {
 }
 
 .promise {
-  background-color: #B0413E;
+  background-color: #548687;
   color: white;
   border-radius: 5px;
   padding: 20px;
@@ -89,7 +89,6 @@ html, body {
   justify-content: center;
   gap: 10px;
   margin-bottom: 20px;
-  
 }
 
 .button {
@@ -108,17 +107,17 @@ html, body {
 }
 
 .start-button {
-  background: #B0413E;
+  background: #548687;
   color: white;
   margin-top: 20px;
 }
 
 .start-button:hover {
-  background: #93322F;
+  background: #416f70;
 }
 
 .start-button:disabled {
-  background: #cbafaf;
+  background: #80b8b9;
   cursor: not-allowed;
   pointer-events: none;
   opacity: 0.6;
