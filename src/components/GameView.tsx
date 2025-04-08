@@ -113,9 +113,12 @@ const GameView: React.FC<GameViewProps> = ({ candidates, setCandidates }) => {
     <div>
       {round <= 10 ? (
         <div className="container">
-          <h2 className="title">Kierros {round} / 10</h2>
-          <div className={`score ${isFeedbackVisible ? (isCorrect ? "correct" : "incorrect") : ""}`}>
-            Pisteet: {score}
+          <div className="upper-info">
+            <h2 className="title">Kierros {round} / 10</h2>
+            <div className={`score ${isFeedbackVisible ? (isCorrect ? "correct" : "incorrect") : ""}`}>
+              Pisteet: {score}
+            </div>
+            <h3 className="question">Kumman ehdokkaan lupaus? 🤔</h3>
           </div>
           <p className="subtitle promise">
             {promise.length <= 150 ? (
