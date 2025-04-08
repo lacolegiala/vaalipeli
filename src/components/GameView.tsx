@@ -126,7 +126,7 @@ const GameView: React.FC<GameViewProps> = ({ candidates, setCandidates }) => {
             <div className={`score ${isFeedbackVisible ? (isCorrect ? "correct" : "incorrect") : ""}`}>
               Pisteet: {score}
             </div>
-            <h3 className="question">Kumman ehdokkaan lupaus? 🤔</h3>
+            <h3>Kumman ehdokkaan lupaus? 🤔</h3>
           </div>
           <p className="subtitle promise">
             {promise.length <= 90 ? (
