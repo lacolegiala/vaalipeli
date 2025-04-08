@@ -64,7 +64,7 @@ const Home: React.FC<HomeProps> = ({ setCandidates }) => {
 
   return (
     <div className="home-container">
-      <h1 className="title">Tervetuloa vaalipeliin!</h1>
+      <h1 className="title">✨ Vaalipeli ✨</h1>
       <div className="info-box">
         <p>
           🎯 <strong>Vaalipeli</strong> on tietovisa, jossa yrität yhdistää vaalilupauksen oikeaan ehdokkaaseen alueeltasi. 

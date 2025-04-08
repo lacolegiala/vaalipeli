@@ -4,7 +4,7 @@ html, body {
   width: 100%;
   height: max-content;
   font-family: 'Arial', sans-serif;
-  background-color: #FFFFC7;
+  background-color: #bacaf5;
   color: #333;
 }
 
@@ -28,6 +28,7 @@ html, body {
 .title {
   font-size: 2rem;
   color: #333;
+  text-shadow: 1px 1px 2px rgb(216, 157, 47);
   margin-bottom: 10px;
 }
 
@@ -35,6 +36,7 @@ html, body {
   font-size: 1.5rem;
   color: #555;
   margin-bottom: 20px;
+  text-shadow: 1px 1px 2px rgb(156 172 186);
 }
 
 .info-box {
@@ -64,6 +66,7 @@ html, body {
   overflow-y: auto;
   white-space: pre-wrap;
   scroll-behavior: smooth;
+  text-shadow: 1px 1px 2px rgb(102, 102, 102);
 }
 
 .showMore {
@@ -100,6 +103,8 @@ html, body {
   transition: background 0.3s;
   background: #FCAA67;
   color: white;
+  text-shadow: 1px 1px 2px black;
+  font-weight: bold;
 }
 
 .button:hover {
@@ -110,6 +115,8 @@ html, body {
   background: #548687;
   color: white;
   margin-top: 20px;
+  text-shadow: 1px 1px 2px black;
+  font-weight: bold;
 }
 
 .start-button:hover {
@@ -126,6 +133,8 @@ html, body {
 .again-button {
   color: white;
   background: #477735;
+  text-shadow: 1px 1px 2px black;
+  font-weight: bold;
 }
 
 .again-button:hover {
@@ -152,10 +161,11 @@ html, body {
 }
 
 .score {
-  font-size: 1.2rem;
+  font-size: 1.4rem;
   color: #548687;
   font-weight: bold;
   margin-bottom: 20px;
+  text-shadow: 1px 1px 2px white;
 }
 
 .candidate-button {
@@ -168,6 +178,7 @@ html, body {
   transition: all 0.3s ease;
   text-align: center;
   color: #333;
+  text-shadow: 1px 1px 2px darkgray;
 }
 
 .candidate-button:hover {
@@ -191,12 +202,14 @@ html, body {
   background-color: #4CAF50 !important;
   color: white;
   transition: background-color 0.3s ease;
+  text-shadow: 1px 1px 2px rgb(80, 79, 79);
 }
 
 .incorrect {
   background-color: #F44336 !important;
   color: white;
   transition: background-color 0.3s ease;
+  text-shadow: 1px 1px 2px black;
 }
 
 .candidate-button:disabled {
