@@ -334,7 +334,7 @@ html, body {
 .back-to-menu-button {
   background: #548687;
   color: white;
-  padding: 8px 14px;
+  padding: 0.5rem 1rem;;
   font-size: 1rem;
   border: none;
   border-radius: 8px;
@@ -342,6 +342,10 @@ html, body {
   text-shadow: 1px 1px 2px black;
   cursor: pointer;
   transition: background 0.3s ease;
+  position: absolute;
+  top: -6px;
+  left: 8px;
+  font-size: 16px;
 }
 
 .back-to-menu-button:hover {
@@ -400,8 +404,8 @@ html, body {
     z-index: 10;
     height: 22px;
     position: absolute;
-    top: -10px;
-    right: -8px;
+    top: -16px;
+    right: -14px;
     font-size: 0.9rem;
     padding: 6px 12px;
   }
@@ -418,10 +422,11 @@ html, body {
     font-size: 14px;
   }
 
-  .top-left-back-button {
-    top: 10px;
-    left: 10px;
-    padding: 8px 12px;
+  .back-to-menu-button {
+    top: -16px;
+    left: -14px;
+    padding: 6px 12px;
     font-size: 0.9rem;
+    height: 34px;
   }
 }
