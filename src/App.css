@@ -381,6 +381,7 @@ html, body {
 @media (max-width: 700px) {
   .promise {
     max-width: 270px;
+    max-height: 150px;
     font-size: 18px;
   }
 
@@ -445,5 +446,13 @@ html, body {
     padding: 6px 12px;
     font-size: 0.9rem;
     height: 34px;
+  }
+
+  .again-button {
+    max-width: 160px;
+  }
+
+  .back-button {
+    max-width: 160px;
   }
 }
