@@ -156,10 +156,10 @@ const GameView: React.FC<GameViewProps> = ({ candidates, setCandidates }) => {
     <div>
       {round <= 10 ? (
         <div className="container">
-          <div className="upper-info">
-            <h2 className="title">Kierros {round} / 10</h2>
-            <strong>{gameData.countyOrMunicipality}</strong>
-            <h3 className="question">Kumman ehdokkaan lupaus? 🤔</h3>
+          <div className="top-bar">
+            <button className="button back-to-menu-button" onClick={handleBackToMainMenu}>
+              ← Takaisin
+            </button>
             <div
               className={`score ${
                 isFeedbackVisible ? (isCorrect ? "correct" : "incorrect") : ""
@@ -167,6 +167,11 @@ const GameView: React.FC<GameViewProps> = ({ candidates, setCandidates }) => {
             >
               Pisteet: {score}
             </div>
+          </div>
+          <div className="upper-info">
+            <h2 className="title">Kierros {round} / 10</h2>
+            <strong>{gameData.countyOrMunicipality}</strong>
+            <h3 className="question">Kumman ehdokkaan lupaus? 🤔</h3>
           </div>
           <div
             ref={promiseRef}
