@@ -65,7 +65,7 @@ html, body {
 
 .score {
   position: absolute;
-  top: 0px;
+  top: -10px;
   right: 1.5rem;
   font-weight: bold;
   background-color: #f1f1f1;
@@ -115,7 +115,7 @@ html, body {
   scroll-behavior: smooth;
   text-shadow: 1px 1px 2px rgb(102, 102, 102);
   position: relative;
-  max-width: 580px;
+  width: 580px;
 }
 
 .promise::after {
@@ -365,7 +365,7 @@ html, body {
 
 @media (max-width: 700px) {
   .promise {
-    max-width: 300px;
+    max-width: 270px;
     font-size: 18px;
   }
 
@@ -406,7 +406,7 @@ html, body {
     height: 22px;
     position: absolute;
     top: -16px;
-    right: -14px;
+    right: 4px;
     font-size: 0.9rem;
     padding: 6px 12px;
   }
@@ -421,6 +421,7 @@ html, body {
 
   .question {
     font-size: 14px;
+    margin-bottom: 0px;
   }
 
   .back-to-menu-button {
