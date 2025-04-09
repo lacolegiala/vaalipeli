@@ -60,7 +60,7 @@ html, body {
 }
 
 .info-box strong {
-  color: #B0413E;
+  color: #4b5896;
 }
 
 .score {
@@ -104,7 +104,7 @@ html, body {
 }
 
 .promise {
-  background-color: #548687;
+  background-color: #4b5896;
   color: white;
   border-radius: 5px;
   padding: 20px;
@@ -137,7 +137,7 @@ html, body {
 }
 
 .result-promise {
-  background-color: #548687;
+  background-color: #4b5896;
   color: white;
   border-radius: 5px;
   padding: 20px;
@@ -152,12 +152,12 @@ html, body {
 }
 
 .showMore {
-  padding: 2px;
-  background-color: white;
+  padding: 6px;
+  background-color: #bacaf5;;
   border-color: white;
   border-style: hidden;
-  color: #DB8C4B;
-  font-weight: 500;
+  color: #4b5896;
+  font-weight: bold;
   font-size: 16px;
   margin-left: 2px;
 }
@@ -194,7 +194,7 @@ html, body {
 }
 
 .start-button {
-  background: #548687;
+  background: #4b5896;
   color: white;
   margin-top: 20px;
   text-shadow: 1px 1px 2px black;
@@ -202,11 +202,11 @@ html, body {
 }
 
 .start-button:hover {
-  background: #416f70;
+  background: #2e3b79;
 }
 
 .start-button:disabled {
-  background: #80b8b9;
+  background: #979ec0;
   cursor: not-allowed;
   pointer-events: none;
   opacity: 0.6;
@@ -214,14 +214,14 @@ html, body {
 
 .again-button {
   color: white;
-  background: #477735;
+  background: #4b5896;
   text-shadow: 1px 1px 2px black;
   font-weight: bold;
   max-width: 250px;
 }
 
 .again-button:hover {
-  background: #3A5D2A;
+  background: #2e3b79;
 }
 
 .selector {
@@ -252,7 +252,7 @@ html, body {
 
 .candidate-button {
   background: white;
-  border: 2px solid #548687;
+  border: 2px solid #4b5896;
   border-radius: 10px;
   padding: 10px;
   width: 200px;
@@ -264,7 +264,7 @@ html, body {
 }
 
 .candidate-button:hover {
-  background: #548687;
+  background: #4b5896;
   color: white;
 }
 
@@ -300,13 +300,13 @@ html, body {
 }
 
 .back-button {
-  background: #fa9b4d;
+  background: #FCAA67;
   color: white;
   max-width: 250px;
 }
 
 .back-button:hover {
-  background: #93322F;
+  background: #DB8C4B;;
 }
 
 .results-list {
@@ -348,7 +348,7 @@ html, body {
 }
 
 .back-to-menu-button {
-  background: #548687;
+  background: #FCAA67;;
   color: white;
   padding: 0.5rem 1rem;;
   font-size: 1rem;
@@ -365,7 +365,7 @@ html, body {
 }
 
 .back-to-menu-button:hover {
-  background: #416f70;
+  background: #DB8C4B;;
 }
 
 .small-card {
