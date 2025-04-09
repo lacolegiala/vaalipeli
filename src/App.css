@@ -2,11 +2,16 @@ html, body {
   margin: 0;
   padding: 0;
   width: 100%;
-  height: max-content;
+  min-height: 100vh;
   font-family: 'Arial', sans-serif;
   background-color: #bacaf5;
   color: #333;
-  overflow: auto;
+  overflow-y: auto;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  box-sizing: border-box;
 }
 
 #root {
@@ -108,35 +113,28 @@ html, body {
 }
 
 .promise-wrapper {
-  margin-top: 20px;
   width: 100%;
   display: flex;
   justify-content: center;
+  padding: 20px;
+  box-sizing: border-box;
 }
 
 .promise {
-  /* position: absolute;
-  top: 0;
-  left: 0;
-  right: 0; */
-  /* width: 100%; */
   background-color: #4b5896;
   color: white;
   border-radius: 5px;
   padding: 20px;
   font-weight: bolder;
-  overflow-y: auto;
   white-space: pre-wrap;
-  scroll-behavior: smooth;
   text-shadow: 1px 1px 2px rgb(102, 102, 102);
-  position: relative;
   width: 580px;
   font-size: 20px;
 
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  text-align: center;
+  max-height: 80vh;
+  overflow-y: auto;
+  transition: max-height 0.3s ease;
+  margin-bottom: 40px;
 }
 
 .promise-content {
