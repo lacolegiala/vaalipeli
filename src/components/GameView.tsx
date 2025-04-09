@@ -41,8 +41,10 @@ const GameView: React.FC<GameViewProps> = ({ candidates }) => {
     const saved = localStorage.getItem("userAnswers");
     return saved ? JSON.parse(saved) : [];
   });
-  const promiseRef = useRef<HTMLDivElement | null>(null);
   const [isScrolled, setIsScrolled] = useState(false);
+  const [showExitMessage, setShowExitMessage] = useState(false);
+  
+  const promiseRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
     const el = promiseRef.current;
@@ -148,7 +150,29 @@ const GameView: React.FC<GameViewProps> = ({ candidates }) => {
     navigate("/");
   };
 
-  if (!gameData) return <div className="spinner">Ladataan peliä...</div>;
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setShowExitMessage(true);
+    }, 3000); 
+
+    return () => clearTimeout(timer); 
+  }, []);
+
+  if (!gameData) {
+    return (
+      <div className='container'>
+        <div className="spinner">🔄 Ladataan peliä...</div>
+        {showExitMessage && (
+          <div>
+            <div style={{ fontWeight: 'bold' }}>Eikö peli lataudu? Kokeile valita alueesi/kuntasi uudestaan päävalikosta</div>
+            <button className="button" onClick={() => navigate('/')}>
+              ← Päävalikkoon
+            </button>
+          </div>
+        )}
+      </div>
+    )
+  }
 
   return (
     <div>
@@ -168,10 +192,10 @@ const GameView: React.FC<GameViewProps> = ({ candidates }) => {
           </div>
           <div className="upper-info">
             <h2 className="title">Kierros {round} / 10</h2>
-            <strong>{gameData.countyOrMunicipality}</strong>
+            <strong>{gameData?.countyOrMunicipality}</strong>
           </div>
           <div className="candidate-cards">
-            {gameData.rounds[round - 1].candidates.map((candidate) => (
+            {gameData?.rounds[round - 1].candidates.map((candidate) => (
               <button
                 key={candidate.id}
                 className={`button candidate-button ${
@@ -238,7 +262,7 @@ const GameView: React.FC<GameViewProps> = ({ candidates }) => {
           </div>
           <div className="button-group">
             <button className="again-button" onClick={handleNewGame}>
-              {gameData.countyOrMunicipality} uudestaan!
+              {gameData?.countyOrMunicipality} uudestaan!
             </button>
             <button
               className="button back-button"
@@ -249,7 +273,7 @@ const GameView: React.FC<GameViewProps> = ({ candidates }) => {
           </div>
           <h3 className="result-subtitle">Oikeat vastaukset:</h3>
           <div className="results-list">
-            {gameData.rounds.map((roundItem, index) => {
+            {gameData?.rounds.map((roundItem, index) => {
               const userAnswer = userAnswers.find((a) => a.round === index + 1);
               const isUserCorrect =
                 userAnswer?.selectedId === roundItem.correctCandidateId;

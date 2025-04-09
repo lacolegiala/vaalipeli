@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import './App.css';
 import React from 'react';
-import { HashRouter as Router, Routes, Route } from 'react-router-dom';
+import { HashRouter as Router, Routes, Route, useNavigate } from 'react-router-dom';
 import Home from './components/Home';
 import GameView from './components/GameView';
 import { CandidateWithParty } from './types';
@@ -28,11 +28,7 @@ function App() {
         <Route
           path="/play"
           element={
-            candidates.length > 0 ? (
-              <GameView candidates={candidates} />
-            ) : (
-              <div className="spinner">🔄 Ladataan peliä...</div>
-            )
+            <GameView candidates={candidates} />
           }
         />
       </Routes>
