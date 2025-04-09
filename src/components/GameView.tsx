@@ -260,7 +260,7 @@ const GameView: React.FC<GameViewProps> = ({ candidates, setCandidates }) => {
                     isUserCorrect ? "result-correct" : "result-incorrect"
                   }`}
                 >
-                  <p className="promise">”{roundItem.promise}”</p>
+                  <p className="result-promise">”{roundItem.promise}”</p>
                   <div className="candidate-cards result-cards">
                     {roundItem.candidates.map((candidate) => {
                       const isCorrect =

@@ -136,6 +136,21 @@ html, body {
   opacity: 0;
 }
 
+.result-promise {
+  background-color: #548687;
+  color: white;
+  border-radius: 5px;
+  padding: 20px;
+  font-weight: bolder;
+  max-height: 200px;
+  overflow-y: auto;
+  white-space: pre-wrap;
+  scroll-behavior: smooth;
+  text-shadow: 1px 1px 2px rgb(102, 102, 102);
+  position: relative;
+  max-width: 580px;
+}
+
 .showMore {
   padding: 2px;
   background-color: white;
