@@ -21,6 +21,7 @@ const Home: React.FC<HomeProps> = ({ setCandidates }) => {
   const location = useLocation();
 
   useEffect(() => {
+    setCandidates([])
     localStorage.clear();
     setCandidates([]);
   }, [location.pathname]);

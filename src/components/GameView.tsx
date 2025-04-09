@@ -6,10 +6,9 @@ import { generateGameData } from "../utils/generateGameData";
 
 type GameViewProps = {
   candidates: CandidateWithParty[];
-  setCandidates: (candidates: CandidateWithParty[]) => void;
 };
 
-const GameView: React.FC<GameViewProps> = ({ candidates, setCandidates }) => {
+const GameView: React.FC<GameViewProps> = ({ candidates }) => {
   const [round, setRound] = useState(() => {
     const saved = localStorage.getItem("round");
     return saved ? parseInt(saved, 10) : 1;
@@ -146,7 +145,6 @@ const GameView: React.FC<GameViewProps> = ({ candidates, setCandidates }) => {
     setGameData(null);
     setRound(1);
     setScore(0);
-    setCandidates([]);
     navigate("/");
   };
 

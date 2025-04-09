@@ -4,7 +4,7 @@ import React from 'react';
 import { HashRouter as Router, Routes, Route } from 'react-router-dom';
 import Home from './components/Home';
 import GameView from './components/GameView';
-import { Candidate, CandidateWithParty } from './types';
+import { CandidateWithParty } from './types';
 
 function App() {
   const [candidates, setCandidatesState] = useState<CandidateWithParty[]>([]);
@@ -29,7 +29,7 @@ function App() {
           path="/play"
           element={
             candidates.length > 0 ? (
-              <GameView candidates={candidates} setCandidates={setCandidates} />
+              <GameView candidates={candidates} />
             ) : (
               <div className="spinner">🔄 Ladataan peliä...</div>
             )
