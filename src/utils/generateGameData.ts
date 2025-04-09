@@ -26,14 +26,14 @@ export function generateGameData(
       correctCandidate.info.election_promise_1,
       correctCandidate.info.election_promise_2,
       correctCandidate.info.election_promise_3,
-    ].filter((p) => p !== undefined);
+    ].filter((p) => (p !== undefined));
 
     const selectedPromise =
       promises.length > 0
         ? promises[Math.floor(Math.random() * promises.length)]
         : null;
 
-    const finalPromise = selectedPromise?.fi || selectedPromise?.se || null;
+    const finalPromise = selectedPromise?.fi || selectedPromise?.se || "Ei vaalilupausta 🥲"
 
     rounds.push({
       candidates: [candidate1, candidate2],

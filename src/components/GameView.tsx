@@ -232,11 +232,7 @@ const GameView: React.FC<GameViewProps> = ({ candidates }) => {
             <div className={`promise ${isScrolled ? "scrolled" : ""}`}>
               <div className="promise-content">
                 {promise.length <= 100 ? (
-                  promise ? (
-                    `”${promise}”`
-                  ) : (
-                    "Ei vaalilupausta 🥲"
-                  )
+                  promise
                 ) : (
                   <>
                     {showMore
