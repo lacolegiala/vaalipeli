@@ -16,9 +16,9 @@ html, body {
 
 #root {
   max-width: 1280px;
-  margin: 0 auto;
   padding: 2rem;
   text-align: center;
+  margin-top: 46px;
 }
 
 .selector {
@@ -116,7 +116,6 @@ html, body {
   width: 100%;
   display: flex;
   justify-content: center;
-  padding: 20px;
   box-sizing: border-box;
 }
 
@@ -374,6 +373,7 @@ html, body {
   justify-content: space-between;
   align-items: center;
   position: relative;
+  margin-left: 10px;
 }
 
 .back-to-menu-button {
