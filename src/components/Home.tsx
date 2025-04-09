@@ -15,6 +15,7 @@ const Home: React.FC<HomeProps> = ({ setCandidates }) => {
   const [selectedType, setSelectedType] = useState<ElectionType>();
   const [isLoading, setIsLoading] = useState(false);
   const [isSelected, setIsSelected] = useState(false)
+  const [selectedAreaName, setSelectedAreaName] = useState<string | null>(null);
 
   const navigate = useNavigate();
   const location = useLocation();
@@ -44,6 +45,7 @@ const Home: React.FC<HomeProps> = ({ setCandidates }) => {
     const selectedOption = municipalities.find(m => m.name_fi === event.target.value);
     if (!selectedOption) return;
     setIsSelected(true);
+    setSelectedAreaName(selectedOption.name_fi);
   
     const [{ data: parties }, { data: candidates }] = await Promise.all([
       axios.get<Party[]>(`https://vaalipeli-backend.onrender.com/municipality/${selectedOption.id}/parties`),
@@ -64,6 +66,7 @@ const Home: React.FC<HomeProps> = ({ setCandidates }) => {
     const selectedOption = counties.find(c => c.name_fi === event.target.value);
     if (!selectedOption) return;
     setIsSelected(true)
+    setSelectedAreaName(selectedOption.name_fi);
     
     const [{ data: parties }, { data: candidates }] = await Promise.all([
       axios.get<Party[]>(`https://vaalipeli-backend.onrender.com/county/${selectedOption.id}/parties`),
@@ -81,6 +84,9 @@ const Home: React.FC<HomeProps> = ({ setCandidates }) => {
   };
 
   const handleStartGame = () => {
+    if (selectedAreaName) {
+      localStorage.setItem("selectedAreaName", selectedAreaName);
+    }
     navigate('/play');
   };
 

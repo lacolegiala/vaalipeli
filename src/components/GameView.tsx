@@ -82,7 +82,8 @@ const GameView: React.FC<GameViewProps> = ({ candidates, setCandidates }) => {
 
   useEffect(() => {
     if (!gameData && candidates.length > 0) {
-      const generated = generateGameData(candidates);
+      const selectedArea = localStorage.getItem("selectedAreaName") || "Tuntematon alue";
+      const generated = generateGameData(candidates, selectedArea);
       setGameData(generated);
     }
   }, [candidates, game, gameData]);
@@ -157,6 +158,8 @@ const GameView: React.FC<GameViewProps> = ({ candidates, setCandidates }) => {
         <div className="container">
           <div className="upper-info">
             <h2 className="title">Kierros {round} / 10</h2>
+            <strong>{gameData.countyOrMunicipality}</strong>
+            <h3 className="question">Kumman ehdokkaan lupaus? 🤔</h3>
             <div
               className={`score ${
                 isFeedbackVisible ? (isCorrect ? "correct" : "incorrect") : ""
@@ -164,7 +167,6 @@ const GameView: React.FC<GameViewProps> = ({ candidates, setCandidates }) => {
             >
               Pisteet: {score}
             </div>
-            <h3>Kumman ehdokkaan lupaus? 🤔</h3>
           </div>
           <div
             ref={promiseRef}
@@ -230,13 +232,13 @@ const GameView: React.FC<GameViewProps> = ({ candidates, setCandidates }) => {
           </div>
           <div className="button-group">
             <button className="again-button" onClick={handleNewGame}>
-              Uudestaan!
+              {gameData.countyOrMunicipality} uudestaan!
             </button>
             <button
               className="button back-button"
               onClick={handleBackToMainMenu}
             >
-              Takaisin päävalikkoon
+              Kokeile toisella kunnalla tai alueella!
             </button>
           </div>
           <h3 className="subtitle">Oikeat vastaukset:</h3>

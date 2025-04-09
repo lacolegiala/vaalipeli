@@ -68,5 +68,6 @@ export type Round = {
 }
 
 export type GameData = {
-  rounds: Round[]
+  rounds: Round[],
+  countyOrMunicipality: string
 }
