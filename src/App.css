@@ -423,6 +423,10 @@ html, body {
     margin-top: 10px;
   }
 
+  .candidate-image {
+    height: 184px
+  }
+
   .candidate-button {
     width: 100%;
   }
