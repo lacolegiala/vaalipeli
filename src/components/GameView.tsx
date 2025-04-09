@@ -171,8 +171,34 @@ const GameView: React.FC<GameViewProps> = ({ candidates, setCandidates }) => {
           <div className="upper-info">
             <h2 className="title">Kierros {round} / 10</h2>
             <strong>{gameData.countyOrMunicipality}</strong>
-            <h3 className="question">Kumman ehdokkaan lupaus? 🤔</h3>
           </div>
+          <div className="candidate-cards">
+            {gameData.rounds[round - 1].candidates.map((candidate) => (
+              <button
+                key={candidate.id}
+                className={`button candidate-button ${
+                  isFeedbackVisible && candidate.id === selectedCandidateId
+                    ? isCorrect
+                      ? "correct"
+                      : "incorrect"
+                    : ""
+                }`}
+                onClick={() => handlePickChoice(candidate.id)}
+                disabled={isFeedbackVisible}
+              >
+                <img
+                  className="candidate-image"
+                  src={`https://vaalikone.yle.fi/${candidate.image}`}
+                  alt={`${candidate.first_name} ${candidate.last_name}`}
+                />
+                <h3 className="candidate-name">
+                  {candidate.first_name} {candidate.last_name},{" "}
+                  {candidate.party_name}
+                </h3>
+              </button>
+            ))}
+          </div>
+          <h3 className="question">Kumman ehdokkaan lupaus? 🤔</h3>
           <div
             ref={promiseRef}
             className={`promise-wrapper ${isScrolled ? "scrolled" : ""}`}
@@ -200,32 +226,6 @@ const GameView: React.FC<GameViewProps> = ({ candidates, setCandidates }) => {
                 </>
               )}
             </p>
-          </div>
-          <div className="candidate-cards">
-            {gameData.rounds[round - 1].candidates.map((candidate) => (
-              <button
-                key={candidate.id}
-                className={`button candidate-button ${
-                  isFeedbackVisible && candidate.id === selectedCandidateId
-                    ? isCorrect
-                      ? "correct"
-                      : "incorrect"
-                    : ""
-                }`}
-                onClick={() => handlePickChoice(candidate.id)}
-                disabled={isFeedbackVisible}
-              >
-                <img
-                  className="candidate-image"
-                  src={`https://vaalikone.yle.fi/${candidate.image}`}
-                  alt={`${candidate.first_name} ${candidate.last_name}`}
-                />
-                <h3 className="candidate-name">
-                  {candidate.first_name} {candidate.last_name},{" "}
-                  {candidate.party_name}
-                </h3>
-              </button>
-            ))}
           </div>
         </div>
       ) : (
