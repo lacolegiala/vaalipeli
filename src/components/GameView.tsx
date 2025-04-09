@@ -186,14 +186,21 @@ const GameView: React.FC<GameViewProps> = ({ candidates, setCandidates }) => {
                 onClick={() => handlePickChoice(candidate.id)}
                 disabled={isFeedbackVisible}
               >
-                <img
-                  className="candidate-image"
-                  src={`https://vaalikone.yle.fi/${candidate.image}`}
-                  alt={`${candidate.first_name} ${candidate.last_name}`}
-                />
+                <div className="image-wrapper">
+                  <img
+                    className="candidate-image"
+                    src={`https://vaalikone.yle.fi/${candidate.image}`}
+                    alt={`${candidate.first_name} ${candidate.last_name}`}
+                  />
+                  <div
+                    className="party-badge"
+                    style={{ backgroundColor: candidate.party_color }}
+                  >
+                    {candidate.party_name}
+                  </div>
+                </div>
                 <h3 className="candidate-name">
-                  {candidate.first_name} {candidate.last_name},{" "}
-                  {candidate.party_name}
+                  {candidate.first_name} {candidate.last_name}
                 </h3>
               </button>
             ))}

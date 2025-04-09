@@ -14,6 +14,7 @@ export type CandidateWithParty = {
   image: string,
   party_id: number,
   party_name: string,
+  party_color: string,
   info: Info
 }
 

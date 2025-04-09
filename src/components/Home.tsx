@@ -52,11 +52,14 @@ const Home: React.FC<HomeProps> = ({ setCandidates }) => {
       axios.get<Candidate[]>(`https://vaalipeli-backend.onrender.com/municipality/${selectedOption.id}/candidate-data`)
     ]);
 
-    const partyMap = Object.fromEntries(parties.map(p => [p.id, { name: p.short_name_fi }]));
-  
+    const partyMap = Object.fromEntries(
+      parties.map(p => [p.id, { name: p.short_name_fi, color: p.color }])
+    );
+    
     const enrichedCandidates = candidates.map(candidate => ({
       ...candidate,
-      party_name: partyMap[candidate.party_id]?.name || "Tuntematon puolue"
+      party_name: partyMap[candidate.party_id]?.name || "Tuntematon puolue",
+      party_color: partyMap[candidate.party_id]?.color || "#ccc"
     }));
 
     setCandidates(enrichedCandidates);
@@ -73,11 +76,14 @@ const Home: React.FC<HomeProps> = ({ setCandidates }) => {
       axios.get<Candidate[]>(`https://vaalipeli-backend.onrender.com/county/${selectedOption.id}/candidate-data`)
     ]);
 
-    const partyMap = Object.fromEntries(parties.map(p => [p.id, { name: p.short_name_fi }]));
-  
+    const partyMap = Object.fromEntries(
+      parties.map(p => [p.id, { name: p.short_name_fi, color: p.color }])
+    );
+    
     const enrichedCandidates = candidates.map(candidate => ({
       ...candidate,
-      party_name: partyMap[candidate.party_id]?.name || "Tuntematon puolue"
+      party_name: partyMap[candidate.party_id]?.name || "Tuntematon puolue",
+      party_color: partyMap[candidate.party_id]?.color || "#ccc"
     }));
 
     setCandidates(enrichedCandidates);
