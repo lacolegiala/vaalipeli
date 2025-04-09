@@ -270,7 +270,7 @@ const GameView: React.FC<GameViewProps> = ({ candidates, setCandidates }) => {
                           }`}
                         >
                           <img
-                            className="candidate-image"
+                            className="result-candidate-image"
                             src={`https://vaalikone.yle.fi/${candidate.image}`}
                             alt={`${candidate.first_name} ${candidate.last_name}`}
                           />

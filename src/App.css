@@ -404,6 +404,13 @@ html, body {
   margin: 6px;
 }
 
+.result-candidate-image {
+  width: 100%;
+  height: auto;
+  border-radius: 5px;
+  margin-bottom: 10px;
+}
+
 @media (max-width: 700px) {
   .promise {
     width: 270px;
