@@ -81,6 +81,10 @@ html, body {
   padding-right: 6px;
 }
 
+.promise-wrapper {
+  position: relative;
+}
+
 .promise {
   background-color: #548687;
   color: white;
@@ -92,6 +96,25 @@ html, body {
   white-space: pre-wrap;
   scroll-behavior: smooth;
   text-shadow: 1px 1px 2px rgb(102, 102, 102);
+  position: relative;
+}
+
+.promise::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 30px;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+  opacity: 1;
+  border-bottom-left-radius: 5px;
+  border-bottom-right-radius: 5px;
+}
+
+.promise.scrolled::after {
+  opacity: 0;
 }
 
 .showMore {

@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { CandidateWithParty, GameData } from "../types";
 import React from "react";
 import { useNavigate } from "react-router-dom";
@@ -42,6 +42,23 @@ const GameView: React.FC<GameViewProps> = ({ candidates, setCandidates }) => {
     const saved = localStorage.getItem("userAnswers");
     return saved ? JSON.parse(saved) : [];
   });
+  const promiseRef = useRef<HTMLDivElement | null>(null);
+  const [isScrolled, setIsScrolled] = useState(false);
+
+  useEffect(() => {
+    const el = promiseRef.current;
+    if (!el) return;
+
+    const handleScroll = () => {
+      const atBottom = el.scrollTop + el.clientHeight >= el.scrollHeight - 1;
+      setIsScrolled(atBottom);
+    };
+
+    el.addEventListener("scroll", handleScroll);
+    handleScroll();
+
+    return () => el.removeEventListener("scroll", handleScroll);
+  }, []);
 
   const navigate = useNavigate();
 
@@ -114,7 +131,7 @@ const GameView: React.FC<GameViewProps> = ({ candidates, setCandidates }) => {
 
   const handleNewGame = () => {
     clearGameState();
-    setUserAnswers([])
+    setUserAnswers([]);
     setGameData(null);
     setRound(1);
     setScore(0);
@@ -124,7 +141,7 @@ const GameView: React.FC<GameViewProps> = ({ candidates, setCandidates }) => {
   const handleBackToMainMenu = () => {
     localStorage.removeItem("candidates");
     clearGameState();
-    setUserAnswers([])
+    setUserAnswers([]);
     setGameData(null);
     setRound(1);
     setScore(0);
@@ -149,27 +166,34 @@ const GameView: React.FC<GameViewProps> = ({ candidates, setCandidates }) => {
             </div>
             <h3>Kumman ehdokkaan lupaus? 🤔</h3>
           </div>
-          <p className="subtitle promise">
-            {promise.length <= 90 ? (
-              promise ? (
-                `”${promise}”`
+          <div
+            ref={promiseRef}
+            className={`promise-wrapper ${isScrolled ? "scrolled" : ""}`}
+          >
+            <p className="subtitle promise">
+              {promise.length <= 90 ? (
+                promise ? (
+                  `”${promise}”`
+                ) : (
+                  "Ei vaalilupausta 🥲"
+                )
               ) : (
-                "Ei vaalilupausta 🥲"
-              )
-            ) : (
-              <>
-                {showMore ? `”${promise}”` : `”${promise.slice(0, 90)}` + "..."}
-                {!showMore && (
-                  <button
-                    className="showMore"
-                    onClick={() => setShowMore(true)}
-                  >
-                    Näytä koko lupaus
-                  </button>
-                )}
-              </>
-            )}
-          </p>
+                <>
+                  {showMore
+                    ? `”${promise}”`
+                    : `”${promise.slice(0, 90)}` + "..."}
+                  {!showMore && (
+                    <button
+                      className="showMore"
+                      onClick={() => setShowMore(true)}
+                    >
+                      Näytä koko lupaus
+                    </button>
+                  )}
+                </>
+              )}
+            </p>
+          </div>
           <div className="candidate-cards">
             {gameData.rounds[round - 1].candidates.map((candidate) => (
               <button
