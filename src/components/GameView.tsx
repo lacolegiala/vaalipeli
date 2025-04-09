@@ -199,33 +199,29 @@ const GameView: React.FC<GameViewProps> = ({ candidates, setCandidates }) => {
             ))}
           </div>
           <h3 className="question">Kumman ehdokkaan lupaus? 🤔</h3>
-          <div
-            ref={promiseRef}
-            className={`promise-wrapper ${isScrolled ? "scrolled" : ""}`}
-          >
-            <p className="subtitle promise">
-              {promise.length <= 90 ? (
-                promise ? (
-                  `”${promise}”`
+          <div ref={promiseRef} className={`promise-wrapper`}>
+            <div className={`promise ${isScrolled ? "scrolled" : ""}`}>
+              <div className="promise-content">
+                {promise.length <= 90 ? (
+                  promise ? (
+                    `”${promise}”`
+                  ) : (
+                    "Ei vaalilupausta 🥲"
+                  )
                 ) : (
-                  "Ei vaalilupausta 🥲"
-                )
-              ) : (
-                <>
-                  {showMore
-                    ? `”${promise}”`
-                    : `”${promise.slice(0, 90)}` + "..."}
-                  {!showMore && (
-                    <button
-                      className="showMore"
-                      onClick={() => setShowMore(true)}
-                    >
-                      Näytä koko lupaus
-                    </button>
-                  )}
-                </>
+                  <>
+                    {showMore
+                      ? `”${promise}”`
+                      : `”${promise.slice(0, 90)}...”`}
+                  </>
+                )}
+              </div>
+              {!showMore && promise.length > 90 && (
+                <button className="showMore" onClick={() => setShowMore(true)}>
+                  Näytä koko lupaus
+                </button>
               )}
-            </p>
+            </div>
           </div>
         </div>
       ) : (
