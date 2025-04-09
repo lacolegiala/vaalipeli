@@ -246,7 +246,7 @@ const GameView: React.FC<GameViewProps> = ({ candidates, setCandidates }) => {
               Kokeile toisella kunnalla tai alueella!
             </button>
           </div>
-          <h3 className="subtitle">Oikeat vastaukset:</h3>
+          <h3 className="result-subtitle">Oikeat vastaukset:</h3>
           <div className="results-list">
             {gameData.rounds.map((roundItem, index) => {
               const userAnswer = userAnswers.find((a) => a.round === index + 1);

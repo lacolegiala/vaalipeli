@@ -46,6 +46,13 @@ html, body {
   text-shadow: 1px 1px 2px rgb(171, 155, 68);
 }
 
+.result-subtitle {
+  font-size: 1.5rem;
+  color: #444444;
+  margin-bottom: -8px;
+  text-shadow: 1px 1px 2px rgb(171, 155, 68);
+}
+
 .info-box {
   background-color: #FFF4E0;
   border: 2px solid #FCAA67;
