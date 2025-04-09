@@ -202,7 +202,7 @@ const GameView: React.FC<GameViewProps> = ({ candidates, setCandidates }) => {
           <div ref={promiseRef} className={`promise-wrapper`}>
             <div className={`promise ${isScrolled ? "scrolled" : ""}`}>
               <div className="promise-content">
-                {promise.length <= 90 ? (
+                {promise.length <= 130 ? (
                   promise ? (
                     `”${promise}”`
                   ) : (
@@ -212,11 +212,11 @@ const GameView: React.FC<GameViewProps> = ({ candidates, setCandidates }) => {
                   <>
                     {showMore
                       ? `”${promise}”`
-                      : `”${promise.slice(0, 90)}...”`}
+                      : `”${promise.slice(0, 130)}...”`}
                   </>
                 )}
               </div>
-              {!showMore && promise.length > 90 && (
+              {!showMore && promise.length > 130 && (
                 <button className="showMore" onClick={() => setShowMore(true)}>
                   Näytä koko lupaus
                 </button>
