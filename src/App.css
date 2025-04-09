@@ -6,6 +6,7 @@ html, body {
   font-family: 'Arial', sans-serif;
   background-color: #bacaf5;
   color: #333;
+  overflow: auto;
 }
 
 #root {
@@ -108,7 +109,7 @@ html, body {
 
 .promise-wrapper {
   position: relative;
-  height: 300px;
+  height: 150px;
   margin-top: 20px;
 }
 

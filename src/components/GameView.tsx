@@ -241,7 +241,7 @@ const GameView: React.FC<GameViewProps> = ({ candidates }) => {
                   </>
                 )}
               </div>
-              {!showMore && promise.length > 120 && (
+              {!showMore && promise.length > 100 && (
                 <button className="showMore" onClick={() => setShowMore(true)}>
                   Näytä koko lupaus
                 </button>
