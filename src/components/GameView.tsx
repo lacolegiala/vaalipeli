@@ -294,18 +294,27 @@ const GameView: React.FC<GameViewProps> = ({ candidates }) => {
                       return (
                         <div
                           key={candidate.id}
+                          style={{ height: 'auto' }}
                           className={`candidate-button small-card ${
                             isCorrect ? "correct" : ""
                           }`}
                         >
-                          <img
-                            className="result-candidate-image"
-                            src={`https://vaalikone.yle.fi/${candidate.image}`}
-                            alt={`${candidate.first_name} ${candidate.last_name}`}
-                          />
+                          <div className="image-wrapper">
+                            <img
+                              className="candidate-image"
+                              style={{ height: 'auto' }}
+                              src={`https://vaalikone.yle.fi/${candidate.image}`}
+                              alt={`${candidate.first_name} ${candidate.last_name}`}
+                            />
+                            <div
+                              className="party-badge"
+                              style={{ backgroundColor: candidate.party_color }}
+                            >
+                              {candidate.party_name}
+                            </div>
+                          </div>
                           <h3 className="candidate-name">
-                            {candidate.first_name} {candidate.last_name},{" "}
-                            {candidate.party_name}
+                            {candidate.first_name} {candidate.last_name}
                           </h3>
                         </div>
                       );
