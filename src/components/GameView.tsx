@@ -232,7 +232,11 @@ const GameView: React.FC<GameViewProps> = ({ candidates }) => {
             <div className={`promise ${isScrolled ? "scrolled" : ""}`}>
               <div className="promise-content">
                 {promise.length <= 100 ? (
-                  promise
+                  promise ? (
+                    `”${promise}”`
+                  ) : (
+                    "Ei vaalilupausta 🥲"
+                  )
                 ) : (
                   <>
                     {showMore
@@ -281,7 +285,7 @@ const GameView: React.FC<GameViewProps> = ({ candidates }) => {
                     isUserCorrect ? "result-correct" : "result-incorrect"
                   }`}
                 >
-                  <p className="result-promise">”{roundItem.promise}”</p>
+                  <p className="result-promise">{roundItem.promise ? `”${roundItem.promise}”` : 'Ei vaalilupausta 🥲'}</p>
                   <div className="candidate-cards result-cards">
                     {roundItem.candidates.map((candidate) => {
                       const isCorrect =

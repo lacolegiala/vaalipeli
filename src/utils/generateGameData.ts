@@ -33,7 +33,7 @@ export function generateGameData(
         ? promises[Math.floor(Math.random() * promises.length)]
         : null;
 
-    const finalPromise = selectedPromise?.fi || selectedPromise?.se || "Ei vaalilupausta 🥲"
+    const finalPromise = selectedPromise?.fi || selectedPromise?.se || null
 
     rounds.push({
       candidates: [candidate1, candidate2],
