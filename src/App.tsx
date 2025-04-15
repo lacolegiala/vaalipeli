@@ -11,11 +11,11 @@ function App() {
 
   const setCandidates = (candidates: CandidateWithParty[]) => {
     setCandidatesState(candidates);
-    localStorage.setItem("candidates", JSON.stringify(candidates));
+    sessionStorage.setItem("candidates", JSON.stringify(candidates));    
   };
 
   useEffect(() => {
-    const stored = localStorage.getItem("candidates");
+    const stored = sessionStorage.getItem("candidates");
     if (stored) {
       setCandidatesState(JSON.parse(stored));
     }
